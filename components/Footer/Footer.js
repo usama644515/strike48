@@ -33,18 +33,16 @@ const Footer = () => {
           <div className={styles.navColumns}>
             <div className={styles.navColumn}>
               <h3>Agentic Solutions</h3>
-              <Link href="/solutions-overview">Overview</Link>
-              <Link href="/testimonials">Testimonials</Link>
-              <Link href="/technology">Technology</Link>
-              <Link href="/knowledge-center">Knowledge Center</Link>
-              <Link href="/strike48">Strike48</Link>
+              <Link href="/security">Security</Link>
+              <Link href="/compliance">Compliance</Link>
+              <Link href="/finace">Finance</Link>
+              <Link href="/marketing">Marketing</Link>
+              <Link href="/build-your-own-agent">Build your own Agent</Link>
             </div>
             
             <div className={styles.navColumn}>
-              <h3>Security</h3>
-              <Link href="/client-stories">Client Stories</Link>
-              <Link href="/our-platform">Our Platform</Link>
-              <Link href="/articles-resources">Articles & Resources</Link>
+              <h3>Testimonials</h3>
+              <Link href="/testimonials">Client Stories</Link>
               <Link href="/about-us">About Us</Link>
             </div>
             
@@ -57,11 +55,11 @@ const Footer = () => {
             </div>
             
             <div className={styles.navColumn}>
-              <h3>Build Your Own Agent</h3>
-              <Link href="/developer-docs">Developer Docs</Link>
-              <Link href="/api-reference">API Reference</Link>
-              <Link href="/tutorials">Tutorials</Link>
-              <Link href="/community">Community</Link>
+              <h3>Strike48</h3>
+              <Link href="/about">About Us</Link>
+              <Link href="/trust-security">Trust & Security</Link>
+              <Link href="/case-studies">Case Studies</Link>
+              <Link href="/contact">Contact Us</Link>
             </div>
             
             
@@ -84,13 +82,11 @@ const Footer = () => {
             © {new Date().getFullYear()} Strike48™. All Rights Reserved.
           </div>
           <div className={styles.legalLinks}>
-            <Link href="/terms">Terms of Service</Link>
+            <Link href="/terms-of-service">Terms of Service</Link>
             <span className={styles.separator}>|</span>
-            <Link href="/privacy">Privacy Policy</Link>
+            <Link href="/privacy-policy">Privacy Policy</Link>
             <span className={styles.separator}>|</span>
-            <Link href="/trafficking">Combating Trafficking</Link>
-            <span className={styles.separator}>|</span>
-            <Link href="/cookies">Cookie Policy</Link>
+            <Link href="/combating-trafficking">Combating Trafficking</Link>
           </div>
         </div>
       </div>

@@ -1,0 +1,64 @@
+.compliance {
+  padding: 3rem 0;
+  background: white;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.complianceContent {
+  text-align: center;
+}
+
+.complianceBadge {
+  background: linear-gradient(135deg, #0d1729 0%, #1a2b47 100%);
+  color: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.badgeIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.badgeTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.badgeDescription {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #cbd5e0;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .compliance {
+    padding: 2rem 0;
+  }
+  
+  .complianceBadge {
+    padding: 2rem;
+  }
+  
+  .badgeIcon {
+    font-size: 2.5rem;
+  }
+  
+  .badgeTitle {
+    font-size: 1.3rem;
+  }
+  
+  .badgeDescription {
+    font-size: 1rem;
+  }
+}

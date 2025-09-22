@@ -1,0 +1,69 @@
+/* pages/CaseStudies.module.css */
+.container {
+  min-height: 100vh;
+}
+
+.main {
+  padding-top: 80px; /* Adjust based on your header height */
+}
+
+.hero {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1a202c;
+  margin-bottom: 1rem;
+}
+
+.heroDescription {
+  font-size: 1.25rem;
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.caseStudies {
+  padding: 5rem 0;
+}
+
+.caseStudiesGrid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 3rem 0;
+  }
+  
+  .heroTitle {
+    font-size: 2rem;
+  }
+  
+  .heroDescription {
+    font-size: 1.1rem;
+  }
+  
+  .caseStudies {
+    padding: 3rem 0;
+  }
+  
+  .caseStudiesGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}

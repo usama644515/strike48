@@ -1,0 +1,172 @@
+/* components/ContactForm.module.css */
+.form {
+  max-width: 600px;
+}
+
+.formRow {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.formGroup {
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.checkboxGroup {
+  margin-bottom: 1.5rem;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #374151;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.checkboxLabel input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  left: 0;
+  top: 0.2rem;
+  height: 1.25rem;
+  width: 1.25rem;
+  background-color: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+}
+
+.checkboxLabel input:checked ~ .checkmark {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkboxLabel input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkboxLabel .checkmark:after {
+  left: 0.4rem;
+  top: 0.1rem;
+  width: 0.35rem;
+  height: 0.7rem;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.privacyNote {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.privacyNote a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.privacyNote a:hover {
+  text-decoration: underline;
+}
+
+.captcha {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.captchaBox {
+  padding: 0.5rem 1rem;
+  background-color: #f3f4f6;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.captchaLinks {
+  display: flex;
+  gap: 1rem;
+}
+
+.captchaLinks a {
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-decoration: none;
+}
+
+.captchaLinks a:hover {
+  color: #3b82f6;
+  text-decoration: underline;
+}
+
+.submitButton {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #2563eb;
+}
+
+@media (max-width: 768px) {
+  .formRow {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .captcha {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

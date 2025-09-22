@@ -1,0 +1,28 @@
+.legalLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: white;
+  border-radius: 8px;
+  color: #0070f3;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.legalLink:hover {
+  background: #0070f3;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 112, 243, 0.3);
+}
+
+.linkIcon {
+  transition: transform 0.3s ease;
+}
+
+.legalLink:hover .linkIcon {
+  transform: translateX(3px);
+}

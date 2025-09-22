@@ -46,16 +46,17 @@ const Header = () => {
   // Dropdown menu data
   const dropdownMenus = {
     agentic: [
-      { name: 'Overview', href: '/agentic-solutions/overview' },
-      { name: 'Features', href: '/agentic-solutions/features' },
-      { name: 'Use Cases', href: '/agentic-solutions/use-cases' },
-      { name: 'Pricing', href: '/agentic-solutions/pricing' },
+      { name: 'Security', href: '/security' },
+      { name: 'Compliance', href: 'compliance' },
+      { name: 'Finance', href: '/finance' },
+      { name: 'Finance', href: '/marketing' },
+      { name: 'Build your own Agent', href: '/build-your-own-agent' },
     ],
     strike48: [
-      { name: 'About Strike48', href: '/strike48/about' },
-      { name: 'Methodology', href: '/strike48/methodology' },
-      { name: 'Case Studies', href: '/strike48/case-studies' },
-      { name: 'Results', href: '/strike48/results' },
+      { name: 'About Us', href: '/about' },
+      { name: 'Trust & Security', href: '/trust-security' },
+      { name: 'Case Studies', href: '/case-studies' },
+      { name: 'Contact Us', href: '/contact' },
     ],
   };
 

@@ -1,0 +1,27 @@
+.features {
+  padding: 4rem 0;
+  background: #f8fafc;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .features {
+    padding: 3rem 0;
+  }
+  
+  .featuresGrid {
+    grid-template-columns: 1fr;
+  }
+}

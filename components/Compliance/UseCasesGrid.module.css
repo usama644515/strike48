@@ -1,0 +1,27 @@
+.useCases {
+  padding: 4rem 0;
+  background: #f8fafc;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.useCasesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .useCases {
+    padding: 3rem 0;
+  }
+  
+  .useCasesGrid {
+    grid-template-columns: 1fr;
+  }
+}
