@@ -3,7 +3,7 @@ import Footer from '../components/Footer/Footer';
 import HeroSection from '../components/Security/HeroSection';
 import FeaturesGrid from '../components/Security/FeaturesGrid';
 import BenefitsSection from '../components/Security/BenefitsSection';
-import styles from '../styles/Security.module.css';
+import styles from '../styles/security.module.css';
 
 const SecuritySolutions = () => {
   return (

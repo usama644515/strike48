@@ -4,7 +4,7 @@ import HeroSection from '../components/knowledgeCenter/HeroSection';
 import ArticlesSection from '../components/knowledgeCenter/ArticlesSection';
 import VideoTutorialsSection from '../components/knowledgeCenter/VideoTutorialsSection';
 import SupportSection from '../components/knowledgeCenter/SupportSection';
-import styles from '../styles/KnowledgeCenter.module.css';
+import styles from '../styles/knowledgecenter.module.css';
 
 const KnowledgeCenterPage = () => {
   return (
