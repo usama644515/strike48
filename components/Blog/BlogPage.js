@@ -78,22 +78,27 @@ export default function BlogPage() {
   const [posts, setPosts] = useState([])
   const [filteredPosts, setFilteredPosts] = useState([])
   const [selectedCategory, setSelectedCategory] = useState("")
+  const [selectedAuthor, setSelectedAuthor] = useState("")
   const [searchQuery, setSearchQuery] = useState("")
   const [categories, setCategories] = useState([])
+  const [authors, setAuthors] = useState([])
   const [loading, setLoading] = useState(true)
   const [sortOption, setSortOption] = useState("newest")
   const [currentPage, setCurrentPage] = useState(1)
   const postsPerPage = 6
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchData = async () => {
       try {
-        const query = `*[_type == "post"] | order(publishedAt desc){
+        // Fetch posts
+        const postsQuery = `*[_type == "post"] | order(publishedAt desc){
           title,
           slug,
           "author": author->name,
+          "authorSlug": author->slug.current,
           "categories": categories[]->{
-            title
+            title,
+            slug
           },
           mainImage{
             asset->{
@@ -104,23 +109,38 @@ export default function BlogPage() {
           excerpt
         }`
 
-        const postsData = await client.fetch(query)
+        // Fetch categories
+        const categoriesQuery = `*[_type == "category"]{
+          title,
+          slug,
+          "postCount": count(*[_type == "post" && references(^._id)])
+        } | order(title asc)`
+
+        // Fetch authors
+        const authorsQuery = `*[_type == "author"]{
+          name,
+          slug,
+          "postCount": count(*[_type == "post" && references(^._id)])
+        } | order(name asc)`
+
+        const [postsData, categoriesData, authorsData] = await Promise.all([
+          client.fetch(postsQuery),
+          client.fetch(categoriesQuery),
+          client.fetch(authorsQuery)
+        ])
+
         setPosts(postsData)
-        
-        const allCategories = postsData.flatMap((post) => 
-          post.categories?.map((c) => c.title) || []
-        )
-        const uniqueCategories = Array.from(new Set(allCategories))
-        setCategories(uniqueCategories)
+        setCategories(categoriesData)
+        setAuthors(authorsData)
         
       } catch (error) {
-        console.error("Error fetching posts:", error)
+        console.error("Error fetching data:", error)
       } finally {
         setLoading(false)
       }
     }
 
-    fetchPosts()
+    fetchData()
   }, [])
 
   useEffect(() => {
@@ -129,6 +149,12 @@ export default function BlogPage() {
     if (selectedCategory) {
       filtered = filtered.filter(post => 
         post.categories?.some((c) => c.title === selectedCategory)
+      )
+    }
+
+    if (selectedAuthor) {
+      filtered = filtered.filter(post => 
+        post.author === selectedAuthor
       )
     }
 
@@ -150,11 +176,11 @@ export default function BlogPage() {
     }
 
     setFilteredPosts(sorted)
-  }, [posts, selectedCategory, searchQuery, sortOption])
+  }, [posts, selectedCategory, selectedAuthor, searchQuery, sortOption])
 
   useEffect(() => {
     setCurrentPage(1)
-  }, [selectedCategory, searchQuery, sortOption])
+  }, [selectedCategory, selectedAuthor, searchQuery, sortOption])
 
   const indexOfLastPost = currentPage * postsPerPage
   const currentPosts = filteredPosts.slice(0, indexOfLastPost)
@@ -165,6 +191,7 @@ export default function BlogPage() {
 
   const clearFilters = () => {
     setSelectedCategory("")
+    setSelectedAuthor("")
     setSearchQuery("")
     setSortOption("newest")
   }
@@ -226,26 +253,47 @@ export default function BlogPage() {
                       onClick={() => setSelectedCategory("")}
                       className={`${styles.categoryButton} ${!selectedCategory ? styles.activeCategory : ''}`}
                     >
-                      All Articles
+                      All Categories
                       <span className={styles.categoryCount}>({posts.length})</span>
                     </button>
                   </li>
-                  {categories.map((category) => {
-                    const count = posts.filter(post => 
-                      post.categories?.some((c) => c.title === category)
-                    ).length;
-                    return (
-                      <li key={category} className={styles.categoryItem}>
-                        <button
-                          onClick={() => setSelectedCategory(category)}
-                          className={`${styles.categoryButton} ${selectedCategory === category ? styles.activeCategory : ''}`}
-                        >
-                          {category}
-                          <span className={styles.categoryCount}>({count})</span>
-                        </button>
-                      </li>
-                    )
-                  })}
+                  {categories.map((category) => (
+                    <li key={category.slug.current} className={styles.categoryItem}>
+                      <button
+                        onClick={() => setSelectedCategory(category.title)}
+                        className={`${styles.categoryButton} ${selectedCategory === category.title ? styles.activeCategory : ''}`}
+                      >
+                        {category.title}
+                        <span className={styles.categoryCount}>({category.postCount})</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className={styles.authorsSection}>
+                <h3 className={styles.authorsTitle}>Authors</h3>
+                <ul className={styles.authorsList}>
+                  <li className={styles.authorItem}>
+                    <button
+                      onClick={() => setSelectedAuthor("")}
+                      className={`${styles.authorButton} ${!selectedAuthor ? styles.activeAuthor : ''}`}
+                    >
+                      All Authors
+                      <span className={styles.authorCount}>({posts.length})</span>
+                    </button>
+                  </li>
+                  {authors.map((author) => (
+                    <li key={author.slug.current} className={styles.authorItem}>
+                      <button
+                        onClick={() => setSelectedAuthor(author.name)}
+                        className={`${styles.authorButton} ${selectedAuthor === author.name ? styles.activeAuthor : ''}`}
+                      >
+                        {author.name}
+                        <span className={styles.authorCount}>({author.postCount})</span>
+                      </button>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
@@ -270,11 +318,16 @@ export default function BlogPage() {
               <div className={styles.resultsHeader}>
                 <div>
                   <h2 className={styles.resultsTitle}>
-                    {selectedCategory ? `${selectedCategory} Articles` : 'All Articles'}
+                    {selectedCategory 
+                      ? `${selectedCategory} Articles` 
+                      : selectedAuthor
+                      ? `Articles by ${selectedAuthor}`
+                      : 'All Articles'
+                    }
                   </h2>
                   <p className={styles.resultsCount}>
                     {filteredPosts.length} article{filteredPosts.length !== 1 ? 's' : ''} found
-                    {(selectedCategory || searchQuery) && (
+                    {(selectedCategory || selectedAuthor || searchQuery) && (
                       <button 
                         onClick={clearFilters}
                         className={styles.clearFiltersButton}

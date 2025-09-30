@@ -1,13 +1,17 @@
 // pages/blog/[slug].js
+"use client"
+
+import { useState, useEffect } from "react";
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import { client } from "@/lib/sanity.client";
 import { PortableText } from "@portabletext/react";
-import { Calendar, User } from "lucide-react";
-import styles from "../../components/Blog/BlogPost.module.css";
+import { Calendar, User, Search, X } from "lucide-react";
+import Link from "next/link";
+import styles from "./BlogPost.module.css";
 import pageStyles from '../../components/Blog/BlogPage.module.css'; // Import BlogPage styles for consistency
 
-const query = `*[_type == "post" && slug.current == $slug][0]{
+const postQuery = `*[_type == "post" && slug.current == $slug][0]{
   title,
   "author": author->name,
   mainImage{asset->{url}},
@@ -18,13 +22,45 @@ const query = `*[_type == "post" && slug.current == $slug][0]{
   body
 }`;
 
+const postsQuery = `*[_type == "post"] | order(publishedAt desc){
+  title,
+  slug,
+  "author": author->name,
+  "authorSlug": author->slug.current,
+  "categories": categories[]->{
+    title,
+    slug
+  },
+  mainImage{
+    asset->{
+      url
+    }
+  },
+  publishedAt,
+  excerpt
+}`;
+
+const categoriesQuery = `*[_type == "category"]{
+  title,
+  slug,
+  "postCount": count(*[_type == "post" && references(^._id)])
+} | order(title asc)`;
+
+const authorsQuery = `*[_type == "author"]{
+  name,
+  slug,
+  "postCount": count(*[_type == "post" && references(^._id)])
+} | order(name asc)`;
+
 const slugify = (text) => {
   return text
     ? text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')
     : '';
 };
 
-export default function BlogPost({ post }) {
+export default function BlogPost({ post, posts, categories, authors }) {
+  const [searchQuery, setSearchQuery] = useState("");
+
   if (!post) {
     return (
       <div className={styles.notFound}>
@@ -57,31 +93,97 @@ export default function BlogPost({ post }) {
         <div className={pageStyles.container}>
           <div className={pageStyles.layoutGrid}>
             <div className={pageStyles.sidebarColumn}>
-              {/* Reuse sidebar from BlogPage for similar design */}
-              {/* Note: For simplicity, assuming static sidebar content; adjust as needed */}
+              <div className={pageStyles.searchBox}>
+                <div className={pageStyles.searchHeader}>
+                  <Search className={pageStyles.searchIcon} />
+                  <h3>Search Articles</h3>
+                </div>
+                <form action="/blog" className={pageStyles.searchInputContainer}>
+                  <input
+                    type="text"
+                    name="search"
+                    placeholder="Search articles..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className={pageStyles.searchInput}
+                  />
+                  {searchQuery && (
+                    <button 
+                      type="button"
+                      onClick={() => setSearchQuery('')} 
+                      className={pageStyles.clearSearch}
+                    >
+                      <X size={16} />
+                    </button>
+                  )}
+                </form>
+              </div>
+
               <div className={pageStyles.categoriesSection}>
                 <h3 className={pageStyles.categoriesTitle}>Categories</h3>
                 <ul className={pageStyles.categoriesList}>
-                  {post.categories && post.categories.map((category, index) => (
-                    <li key={index} className={pageStyles.categoryItem}>
-                      <button className={pageStyles.categoryButton}>
+                  <li className={pageStyles.categoryItem}>
+                    <Link
+                      href="/blog"
+                      className={pageStyles.categoryButton}
+                    >
+                      All Categories
+                      <span className={pageStyles.categoryCount}>({posts.length})</span>
+                    </Link>
+                  </li>
+                  {categories.map((category) => (
+                    <li key={category.slug.current} className={pageStyles.categoryItem}>
+                      <Link
+                        href={`/blog?category=${encodeURIComponent(category.title)}`}
+                        className={pageStyles.categoryButton}
+                      >
                         {category.title}
-                      </button>
+                        <span className={pageStyles.categoryCount}>({category.postCount})</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className={pageStyles.authorsSection}>
+                <h3 className={pageStyles.authorsTitle}>Authors</h3>
+                <ul className={pageStyles.authorsList}>
+                  <li className={pageStyles.authorItem}>
+                    <Link
+                      href="/blog"
+                      className={pageStyles.authorButton}
+                    >
+                      All Authors
+                      <span className={pageStyles.authorCount}>({posts.length})</span>
+                    </Link>
+                  </li>
+                  {authors.map((author) => (
+                    <li key={author.slug.current} className={pageStyles.authorItem}>
+                      <Link
+                        href={`/blog?author=${encodeURIComponent(author.name)}`}
+                        className={pageStyles.authorButton}
+                      >
+                        {author.name}
+                        <span className={pageStyles.authorCount}>({author.postCount})</span>
+                      </Link>
                     </li>
                   ))}
                 </ul>
               </div>
 
               <div className={pageStyles.recentPostsSection}>
-                <h3 className={pageStyles.recentPostsTitle}>Related Posts</h3>
-                {/* Placeholder for related posts; fetch if needed */}
+                <h3 className={pageStyles.recentPostsTitle}>Recent Posts</h3>
                 <div className={pageStyles.recentPostsList}>
-                  <div className={pageStyles.recentPostItem}>
-                    <a className={pageStyles.recentPostLink}>
-                      <h4 className={pageStyles.recentPostTitle}>Example Related Post</h4>
-                      <span className={pageStyles.recentPostDate}>Date</span>
-                    </a>
-                  </div>
+                  {posts.slice(0, 3).map((post) => (
+                    <div key={post.slug.current} className={pageStyles.recentPostItem}>
+                      <Link href={`/blog/${post.slug.current}`} className={pageStyles.recentPostLink}>
+                        <h4 className={pageStyles.recentPostTitle}>{post.title}</h4>
+                        <span className={pageStyles.recentPostDate}>
+                          {new Date(post.publishedAt).toLocaleDateString('en-US')}
+                        </span>
+                      </Link>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -171,21 +273,6 @@ export default function BlogPost({ post }) {
                   />
                 </div>
               </div>
-
-              <div className={styles.ctaSection}>
-                <h3 className={styles.ctaTitle}>Enjoyed this article?</h3>
-                <p className={styles.ctaDescription}>
-                  Subscribe to our newsletter for more insights.
-                </p>
-                <div className={styles.ctaForm}>
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className={styles.ctaInput}
-                  />
-                  <button className={styles.ctaButton}>Subscribe</button>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -218,8 +305,19 @@ export default function BlogPost({ post }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const post = await client.fetch(query, { slug: params.slug });
+  const [post, postsData, categoriesData, authorsData] = await Promise.all([
+    client.fetch(postQuery, { slug: params.slug }),
+    client.fetch(postsQuery),
+    client.fetch(categoriesQuery),
+    client.fetch(authorsQuery)
+  ]);
+
   return {
-    props: { post: post || null },
+    props: { 
+      post: post || null,
+      posts: postsData,
+      categories: categoriesData,
+      authors: authorsData
+    },
   };
 }

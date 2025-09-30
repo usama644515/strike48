@@ -77,7 +77,7 @@ const Header = () => {
               onMouseLeave={handleDropdownLeave}
             >
               <div className={styles.dropdownTrigger}>
-                <Link href="/agentic-solutions">Agentic Solutions</Link>
+                <Link href="#agentic-solutions">Agentic Solutions</Link>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -93,7 +93,7 @@ const Header = () => {
 
             <Link href="/testimonials">Testimonials</Link>
             <Link href="/technology">Technology</Link>
-            <Link href="/knowledge-center">Knowledge Center</Link>
+            <Link href="/blog">Knowledge Center</Link>
 
             {/* Strike48 Dropdown */}
             <div 
@@ -102,7 +102,7 @@ const Header = () => {
               onMouseLeave={handleDropdownLeave}
             >
               <div className={styles.dropdownTrigger}>
-                <Link href="/strike48">Strike48</Link>
+                <Link href="#strike48">Strike48</Link>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -200,7 +200,7 @@ const Header = () => {
 
             <Link href="/testimonials" className={styles.mobileNavItem} onClick={toggleMobileMenu}>Testimonials</Link>
             <Link href="/technology" className={styles.mobileNavItem} onClick={toggleMobileMenu}>Technology</Link>
-            <Link href="/knowledge-center" className={styles.mobileNavItem} onClick={toggleMobileMenu}>Knowledge Center</Link>
+            <Link href="/blog" className={styles.mobileNavItem} onClick={toggleMobileMenu}>Knowledge Center</Link>
 
             <div className={styles.mobileDropdown}>
               <div 

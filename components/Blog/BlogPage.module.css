@@ -5,7 +5,7 @@
 }
 
 .heroSection {
-  background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+    background: linear-gradient(135deg, #0d1729 0%, #1a2b47 100%);
   padding: 5rem 0;
   color: white;
 }
@@ -21,7 +21,7 @@
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: white;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -29,7 +29,7 @@
 
 .heroSubtitle {
   font-size: 1.25rem;
-  color: #cbd5e0;
+  color: rgba(255, 255, 255, 0.9);
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
@@ -48,7 +48,7 @@
   width: 40px;
   height: 40px;
   border: 4px solid #e2e8f0;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid #0070f3;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;
@@ -104,7 +104,7 @@
 }
 
 .searchIcon {
-  color: #667eea;
+  color: #0070f3;
   width: 20px;
   height: 20px;
 }
@@ -125,8 +125,8 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #0070f3;
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
 }
 
 .clearSearch {
@@ -188,16 +188,77 @@
 }
 
 .activeCategory {
-  background: #667eea;
+  background: #0070f3;
   color: white;
 }
 
 .activeCategory:hover {
-  background: #5a6fd8;
+  background: #0051a8;
   color: white;
 }
 
 .categoryCount {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.authorsSection {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid #e2e8f0;
+}
+
+.authorsTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.authorsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.authorItem {
+  margin-bottom: 0.5rem;
+}
+
+.authorButton {
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  color: #4a5568;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.authorButton:hover {
+  background: #e2e8f0;
+  color: #2d3748;
+}
+
+.activeAuthor {
+  background: #0070f3;
+  color: white;
+}
+
+.activeAuthor:hover {
+  background: #0051a8;
+  color: white;
+}
+
+.authorCount {
   font-size: 0.75rem;
   opacity: 0.7;
 }
@@ -317,7 +378,7 @@
 .postCard:hover {
   transform: translateY(-6px);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  border-color: #667eea;
+  border-color: #0070f3;
 }
 
 .postImage {
@@ -371,7 +432,7 @@
 }
 
 .postTitle a:hover {
-  color: #667eea;
+  color: #0070f3;
 }
 
 .postExcerpt {
@@ -405,7 +466,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: #667eea;
+  color: #0070f3;
   font-weight: 500;
   font-size: 0.875rem;
   text-decoration: none;
@@ -414,7 +475,7 @@
 
 .readMore:hover {
   gap: 0.75rem;
-  color: #5a6fd8;
+  color: #0051a8;
 }
 
 .noResults {
@@ -456,13 +517,13 @@
 }
 
 .loadMoreButton:hover {
-  border-color: #667eea;
-  color: #667eea;
+  border-color: #0070f3;
+  color: #0070f3;
   transform: translateY(-1px);
 }
 
 .newsletterCta {
-  background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+    background: linear-gradient(135deg, #0d1729 0%, #1a2b47 100%);
   padding: 4rem 0;
   margin-top: 4rem;
 }
@@ -506,13 +567,13 @@
 
 .newsletterCtaInput:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.3);
 }
 
 .newsletterCtaButton {
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: white;
+  color: #0070f3;
   border: none;
   border-radius: 8px;
   font-weight: 600;
@@ -522,7 +583,7 @@
 
 .newsletterCtaButton:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
 .button {
@@ -540,13 +601,13 @@
 }
 
 .buttonPrimary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #0070f3, #0051a8);
   color: white;
 }
 
 .buttonPrimary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 112, 243, 0.3);
 }
 
 .buttonOutline {
@@ -556,14 +617,14 @@
 }
 
 .buttonOutline:hover {
-  border-color: #667eea;
-  color: #667eea;
+  border-color: #0070f3;
+  color: #0070f3;
   transform: translateY(-1px);
 }
 
 .clearFiltersButton {
   margin-left: 10px;
-  color: #667eea;
+  color: #0070f3;
   background: none;
   border: none;
   cursor: pointer;
@@ -572,7 +633,7 @@
 }
 
 .clearFiltersButton:hover {
-  color: #5a6fd8;
+  color: #0051a8;
 }
 
 @media (max-width: 768px) {

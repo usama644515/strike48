@@ -32,7 +32,7 @@
 
 .category {
   padding: 0.5rem 1rem;
-  background: #3b82f6;
+  background: #0070f3;
   color: white;
   border-radius: 20px;
   font-size: 0.75rem;
@@ -123,7 +123,7 @@
 }
 
 .content a {
-  color: #3b82f6;
+  color: #0070f3;
   text-decoration: none;
 }
 
@@ -142,7 +142,7 @@
 }
 
 .content blockquote {
-  border-left: 4px solid #3b82f6;
+  border-left: 4px solid #0070f3;
   padding-left: 1rem;
   margin: 1.5rem 0;
   font-style: italic;
@@ -195,13 +195,13 @@
 
 .ctaInput:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #0070f3;
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
 }
 
 .ctaButton {
   padding: 0.75rem 1.5rem;
-  background: #3b82f6;
+  background: #0070f3;
   color: white;
   border: none;
   border-radius: 8px;
@@ -211,7 +211,7 @@
 }
 
 .ctaButton:hover {
-  background: #2563eb;
+  background: #0051a8;
 }
 
 .notFound {
@@ -270,7 +270,7 @@
 }
 
 .toc a:hover {
-  color: #667eea;
+  color: #0070f3;
 }
 
 @media (max-width: 768px) {
