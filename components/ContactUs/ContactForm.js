@@ -1,4 +1,3 @@
-// components/ContactForm.js
 import { useState } from 'react';
 import styles from './ContactForm.module.css';
 
@@ -123,6 +122,9 @@ const ContactForm = () => {
 
       <div className={styles.captcha}>
         <div className={styles.captchaBox}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className={styles.shieldIcon}>
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
           protected by reCAPTCHA
         </div>
         <div className={styles.captchaLinks}>
@@ -131,9 +133,14 @@ const ContactForm = () => {
         </div>
       </div>
 
-      <button type="submit" className={styles.submitButton}>Send Message</button>
+      <button type="submit" className={styles.submitButton}>
+        Send Message
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className={styles.buttonIcon}>
+          <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
     </form>
   );
-};
+}; 
 
 export default ContactForm;

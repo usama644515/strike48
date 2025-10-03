@@ -5,6 +5,9 @@
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .promiseCard:hover {
@@ -13,9 +16,11 @@
 }
 
 .cardIcon {
-  font-size: 3rem;
   margin-bottom: 1.5rem;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .cardTitle {
@@ -29,4 +34,5 @@
   color: #4a5568;
   line-height: 1.6;
   margin: 0;
+  flex-grow: 1;
 }

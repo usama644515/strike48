@@ -1,6 +1,8 @@
 .hero {
+  background: linear-gradient(135deg, #0d1729 0%, #1a2b47 100%);
+  color: white;
   padding: 4rem 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  text-align: center;
 }
 
 .container {
@@ -17,14 +19,14 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #1a202c;
+  line-height: 1.2;
 }
 
 .heroSubtitle {
   font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 2rem;
-  color: #0070f3;
+  color: #F0C51C;
   line-height: 1.4;
 }
 
@@ -37,7 +39,7 @@
 .heroText p {
   font-size: 1.1rem;
   line-height: 1.7;
-  color: #4a5568;
+  color: #cbd5e0;
   margin-bottom: 1.5rem;
 }
 

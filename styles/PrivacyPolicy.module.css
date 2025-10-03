@@ -4,11 +4,11 @@
 }
 
 .main {
-  padding-top: 80px; /* Adjust based on your header height */
+  /* padding-top: 80px; */
 }
 
 .hero {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+ background: linear-gradient(135deg, #0d1729 0%, #1a2b47 100%);
   padding: 4rem 0;
   text-align: center;
 }
@@ -22,13 +22,13 @@
 .heroTitle {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #1a202c;
+  color: white;
   margin-bottom: 1rem;
 }
 
 .heroDescription {
   font-size: 1.25rem;
-  color: #4a5568;
+  color: white;
   line-height: 1.6;
 }
 

@@ -1,5 +1,6 @@
 import styles from './Footer.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Footer = () => {
   return (
@@ -8,7 +9,16 @@ const Footer = () => {
         <div className={styles.topSection}>
           <div className={styles.logoColumn}>
             <div className={styles.logo}>
-              <span>Strike48</span>
+              <Link href="/">
+                {/* Replace '/strike48-logo.png' with your actual logo path */}
+                <Image 
+                  src="/images/logo2.png" 
+                  alt="Strike48" 
+                  width={150} 
+                  height={50}
+                  className={styles.logoImage}
+                />
+              </Link>
               <p className={styles.tagline}>Intelligent Solutions for the Modern Enterprise</p>
             </div>
             <div className={styles.socialLinks}>
@@ -35,7 +45,7 @@ const Footer = () => {
               <h3>Agentic Solutions</h3>
               <Link href="/security">Security</Link>
               <Link href="/compliance">Compliance</Link>
-              <Link href="/finace">Finance</Link>
+              <Link href="/finance">Finance</Link>
               <Link href="/marketing">Marketing</Link>
               <Link href="/build-your-own-agent">Build your own Agent</Link>
             </div>
@@ -61,8 +71,6 @@ const Footer = () => {
               <Link href="/case-studies">Case Studies</Link>
               <Link href="/contact">Contact Us</Link>
             </div>
-            
-            
           </div>
         </div>
         

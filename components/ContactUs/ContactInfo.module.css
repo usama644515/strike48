@@ -1,27 +1,97 @@
-/* components/ContactInfo.module.css */
 .info {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, #0d1729 0%, #1a2b47 100%);
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .title {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: #1f2937;
   margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
 .description {
   font-size: 1.1rem;
-  color: #6b7280;
+  color: #cbd5e0;
   line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.contactDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contactItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.contactIcon {
+  padding: 0.75rem;
+  background: rgba(240, 197, 28, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(240, 197, 28, 0.2);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contactItem h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: white;
+}
+
+.contactItem p {
+  color: #cbd5e0;
+  margin: 0;
+  font-size: 0.95rem;
 }
 
 @media (max-width: 768px) {
+  .info {
+    padding: 2rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
   .title {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
   
   .description {
     font-size: 1rem;
+  }
+  
+  .contactDetails {
+    gap: 1.25rem;
+  }
+  
+  .contactItem {
+    gap: 0.875rem;
+  }
+  
+  .contactIcon {
+    padding: 0.625rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contactItem {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+  
+  .contactIcon {
+    align-self: center;
   }
 }

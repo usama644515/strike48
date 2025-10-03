@@ -5,18 +5,19 @@
   padding: 1rem 1.5rem;
   background: white;
   border-radius: 8px;
-  color: #0070f3;
+  color: #1a2b47;
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
 }
 
 .legalLink:hover {
-  background: #0070f3;
-  color: white;
+  background: #F0C51C;
+  color: #1a202c;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 112, 243, 0.3);
+  box-shadow: 0 4px 12px rgba(240, 197, 28, 0.3);
 }
 
 .linkIcon {

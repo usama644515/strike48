@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import styles from './Header.module.css';
 
 const Header = () => {
+  const router = useRouter();
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -43,13 +46,55 @@ const Header = () => {
     setActiveDropdown(null);
   };
 
+  // Check if a menu item is active
+  const isActive = (href) => {
+    if (href === '/') {
+      return router.pathname === '/';
+    }
+    return router.pathname.startsWith(href);
+  };
+
+  // Check if dropdown contains active item
+  const isDropdownActive = (dropdownItems) => {
+    return dropdownItems.some(item => isActive(item.href));
+  };
+
+  // SVG Icons
+  const ChevronDownIcon = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+
+  const SearchIcon = () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+
+  const CloseIcon = () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+
+  const MenuIcon = () => (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 12H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M3 6H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M3 18H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+
   // Dropdown menu data
   const dropdownMenus = {
     agentic: [
       { name: 'Security', href: '/security' },
-      { name: 'Compliance', href: 'compliance' },
+      { name: 'Compliance', href: '/compliance' },
       { name: 'Finance', href: '/finance' },
-      { name: 'Finance', href: '/marketing' },
+      { name: 'Marketing', href: '/marketing' },
       { name: 'Build your own Agent', href: '/build-your-own-agent' },
     ],
     strike48: [
@@ -65,7 +110,16 @@ const Header = () => {
       <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <Link href="/">Strike48</Link>
+            <Link href="/">
+              <Image 
+                src="/images/logo.png" 
+                alt="Strike48" 
+                width={140} 
+                height={50}
+                className={styles.logoImage}
+                priority
+              />
+            </Link>
           </div>
           
           {/* Desktop Navigation */}
@@ -76,24 +130,43 @@ const Header = () => {
               onMouseEnter={() => handleDropdownEnter('agentic')}
               onMouseLeave={handleDropdownLeave}
             >
-              <div className={styles.dropdownTrigger}>
-                <Link href="#agentic-solutions">Agentic Solutions</Link>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+              <div className={`${styles.dropdownTrigger} ${isDropdownActive(dropdownMenus.agentic) ? styles.active : ''}`}>
+                <Link href="">Agentic Solutions</Link>
+                <ChevronDownIcon />
               </div>
               {activeDropdown === 'agentic' && (
                 <div className={styles.dropdown}>
                   {dropdownMenus.agentic.map((item) => (
-                    <Link key={item.name} href={item.href}>{item.name}</Link>
+                    <Link 
+                      key={item.name} 
+                      href={item.href}
+                      className={isActive(item.href) ? styles.active : ''}
+                    >
+                      {item.name}
+                    </Link>
                   ))}
                 </div>
               )}
             </div>
 
-            <Link href="/testimonials">Testimonials</Link>
-            <Link href="/technology">Technology</Link>
-            <Link href="/blog">Knowledge Center</Link>
+            <Link 
+              href="/testimonials" 
+              className={isActive('/testimonials') ? styles.active : ''}
+            >
+              Testimonials
+            </Link>
+            <Link 
+              href="/technology" 
+              className={isActive('/technology') ? styles.active : ''}
+            >
+              Technology
+            </Link>
+            <Link 
+              href="/blog" 
+              className={isActive('/blog') ? styles.active : ''}
+            >
+              Knowledge Center
+            </Link>
 
             {/* Strike48 Dropdown */}
             <div 
@@ -101,16 +174,20 @@ const Header = () => {
               onMouseEnter={() => handleDropdownEnter('strike48')}
               onMouseLeave={handleDropdownLeave}
             >
-              <div className={styles.dropdownTrigger}>
-                <Link href="#strike48">Strike48</Link>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+              <div className={`${styles.dropdownTrigger} ${isDropdownActive(dropdownMenus.strike48) ? styles.active : ''}`}>
+                <Link href="">Strike48</Link>
+                <ChevronDownIcon />
               </div>
               {activeDropdown === 'strike48' && (
                 <div className={styles.dropdown}>
                   {dropdownMenus.strike48.map((item) => (
-                    <Link key={item.name} href={item.href}>{item.name}</Link>
+                    <Link 
+                      key={item.name} 
+                      href={item.href}
+                      className={isActive(item.href) ? styles.active : ''}
+                    >
+                      {item.name}
+                    </Link>
                   ))}
                 </div>
               )}
@@ -126,10 +203,7 @@ const Header = () => {
                 onClick={toggleSearch}
                 aria-label="Search"
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <SearchIcon />
               </button>
               
               {isSearchVisible && (
@@ -140,17 +214,24 @@ const Header = () => {
                     className={styles.searchInput}
                   />
                   <button className={styles.searchClose} onClick={toggleSearch}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    <CloseIcon />
                   </button>
                 </div>
               )}
             </div>
             
-            <Link href="/demo" className={styles.demoButton}>Demo</Link>
-            <Link href="/get-started" className={styles.ctaButton}>Get Started</Link>
+            <Link 
+              href="/demo" 
+              className={`${styles.demoButton} ${isActive('/demo') ? styles.active : ''}`}
+            >
+              Demo
+            </Link>
+            <Link 
+              href="/get-started" 
+              className={`${styles.ctaButton} ${isActive('/get-started') ? styles.active : ''}`}
+            >
+              Get Started
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -159,9 +240,7 @@ const Header = () => {
             onClick={toggleMobileMenu}
             aria-label="Toggle menu"
           >
-            <span className={isMobileMenuOpen ? styles.open : ''}></span>
-            <span className={isMobileMenuOpen ? styles.open : ''}></span>
-            <span className={isMobileMenuOpen ? styles.open : ''}></span>
+            {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
         </div>
 
@@ -173,64 +252,105 @@ const Header = () => {
         {/* Mobile menu drawer */}
         <div className={`${styles.mobileMenu} ${isMobileMenuOpen ? styles.open : ''}`}>
           <div className={styles.mobileNav}>
+            {/* Mobile Logo */}
+            <div className={styles.mobileLogo}>
+              <Link href="/" onClick={toggleMobileMenu}>
+                <Image 
+                  src="/images/logo.png" 
+                  alt="Strike48" 
+                  width={140} 
+                  height={45}
+                  className={styles.logoImage}
+                />
+              </Link>
+            </div>
+
             <div className={styles.mobileDropdown}>
               <div 
-                className={styles.mobileDropdownHeader}
+                className={`${styles.mobileDropdownHeader} ${isDropdownActive(dropdownMenus.agentic) ? styles.active : ''}`}
                 onClick={() => toggleMobileDropdown('agentic')}
               >
                 <span>Agentic Solutions</span>
-                <svg 
-                  width="16" 
-                  height="16" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  className={mobileDropdowns.agentic ? styles.rotated : ''}
-                >
-                  <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <ChevronDownIcon />
               </div>
               {mobileDropdowns.agentic && (
                 <div className={styles.mobileDropdownContent}>
                   {dropdownMenus.agentic.map((item) => (
-                    <Link key={item.name} href={item.href} className={styles.mobileDropdownItem}>{item.name}</Link>
+                    <Link 
+                      key={item.name} 
+                      href={item.href} 
+                      className={`${styles.mobileDropdownItem} ${isActive(item.href) ? styles.active : ''}`}
+                      onClick={toggleMobileMenu}
+                    >
+                      {item.name}
+                    </Link>
                   ))}
                 </div>
               )}
             </div>
 
-            <Link href="/testimonials" className={styles.mobileNavItem} onClick={toggleMobileMenu}>Testimonials</Link>
-            <Link href="/technology" className={styles.mobileNavItem} onClick={toggleMobileMenu}>Technology</Link>
-            <Link href="/blog" className={styles.mobileNavItem} onClick={toggleMobileMenu}>Knowledge Center</Link>
+            <Link 
+              href="/testimonials" 
+              className={`${styles.mobileNavItem} ${isActive('/testimonials') ? styles.active : ''}`}
+              onClick={toggleMobileMenu}
+            >
+              Testimonials
+            </Link>
+            <Link 
+              href="/technology" 
+              className={`${styles.mobileNavItem} ${isActive('/technology') ? styles.active : ''}`}
+              onClick={toggleMobileMenu}
+            >
+              Technology
+            </Link>
+            <Link 
+              href="/blog" 
+              className={`${styles.mobileNavItem} ${isActive('/blog') ? styles.active : ''}`}
+              onClick={toggleMobileMenu}
+            >
+              Knowledge Center
+            </Link>
 
             <div className={styles.mobileDropdown}>
               <div 
-                className={styles.mobileDropdownHeader}
+                className={`${styles.mobileDropdownHeader} ${isDropdownActive(dropdownMenus.strike48) ? styles.active : ''}`}
                 onClick={() => toggleMobileDropdown('strike48')}
               >
                 <span>Strike48</span>
-                <svg 
-                  width="16" 
-                  height="16" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  className={mobileDropdowns.strike48 ? styles.rotated : ''}
-                >
-                  <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <ChevronDownIcon />
               </div>
               {mobileDropdowns.strike48 && (
                 <div className={styles.mobileDropdownContent}>
                   {dropdownMenus.strike48.map((item) => (
-                    <Link key={item.name} href={item.href} className={styles.mobileDropdownItem}>{item.name}</Link>
+                    <Link 
+                      key={item.name} 
+                      href={item.href} 
+                      className={`${styles.mobileDropdownItem} ${isActive(item.href) ? styles.active : ''}`}
+                      onClick={toggleMobileMenu}
+                    >
+                      {item.name}
+                    </Link>
                   ))}
                 </div>
               )}
             </div>
 
-            <Link href="/demo" className={styles.mobileNavItem} onClick={toggleMobileMenu}>Demo</Link>
+            <Link 
+              href="/demo" 
+              className={`${styles.mobileNavItem} ${isActive('/demo') ? styles.active : ''}`}
+              onClick={toggleMobileMenu}
+            >
+              Demo
+            </Link>
             
             <div className={styles.mobileActions}>
-              <Link href="/get-started" className={styles.mobileCtaButton} onClick={toggleMobileMenu}>Get Started</Link>
+              <Link 
+                href="/get-started" 
+                className={`${styles.mobileCtaButton} ${isActive('/get-started') ? styles.active : ''}`}
+                onClick={toggleMobileMenu}
+              >
+                Get Started
+              </Link>
             </div>
           </div>
         </div>

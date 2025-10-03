@@ -1,7 +1,14 @@
 .faqItem {
-  background: #f8fafc;
+  background: white;
   border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.faqItem:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .faqQuestion {
@@ -21,12 +28,13 @@
 }
 
 .faqQuestion:hover {
-  background: #edf2f7;
+  background: #f8fafc;
 }
 
 .chevron {
   transition: transform 0.3s ease;
   flex-shrink: 0;
+  color: #4a5568;
 }
 
 .chevron.open {
