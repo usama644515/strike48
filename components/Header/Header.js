@@ -12,6 +12,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileDropdowns, setMobileDropdowns] = useState({
     agentic: false,
+    knowledge: false,
     strike48: false
   });
 
@@ -97,6 +98,11 @@ const Header = () => {
       { name: 'Marketing', href: '/marketing' },
       { name: 'Build your own Agent', href: '/build-your-own-agent' },
     ],
+    knowledge: [
+      { name: 'Blog', href: '/blog' },
+      { name: 'Education Videos', href: '/knowledge-center' },
+      { name: 'Agentic Log Management', href: '/agentic-log-management' },
+    ],
     strike48: [
       { name: 'About Us', href: '/about' },
       { name: 'Trust & Security', href: '/trust-security' },
@@ -161,12 +167,31 @@ const Header = () => {
             >
               Technology
             </Link>
-            <Link 
-              href="/blog" 
-              className={isActive('/blog') ? styles.active : ''}
+
+            {/* Knowledge Center Dropdown */}
+            <div 
+              className={styles.navItem}
+              onMouseEnter={() => handleDropdownEnter('knowledge')}
+              onMouseLeave={handleDropdownLeave}
             >
-              Knowledge Center
-            </Link>
+              <div className={`${styles.dropdownTrigger} ${isDropdownActive(dropdownMenus.knowledge) ? styles.active : ''}`}>
+                <Link href="">Knowledge Center</Link>
+                <ChevronDownIcon />
+              </div>
+              {activeDropdown === 'knowledge' && (
+                <div className={styles.dropdown}>
+                  {dropdownMenus.knowledge.map((item) => (
+                    <Link 
+                      key={item.name} 
+                      href={item.href}
+                      className={isActive(item.href) ? styles.active : ''}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Strike48 Dropdown */}
             <div 
@@ -303,13 +328,30 @@ const Header = () => {
             >
               Technology
             </Link>
-            <Link 
-              href="/blog" 
-              className={`${styles.mobileNavItem} ${isActive('/blog') ? styles.active : ''}`}
-              onClick={toggleMobileMenu}
-            >
-              Knowledge Center
-            </Link>
+
+            <div className={styles.mobileDropdown}>
+              <div 
+                className={`${styles.mobileDropdownHeader} ${isDropdownActive(dropdownMenus.knowledge) ? styles.active : ''}`}
+                onClick={() => toggleMobileDropdown('knowledge')}
+              >
+                <span>Knowledge Center</span>
+                <ChevronDownIcon />
+              </div>
+              {mobileDropdowns.knowledge && (
+                <div className={styles.mobileDropdownContent}>
+                  {dropdownMenus.knowledge.map((item) => (
+                    <Link 
+                      key={item.name} 
+                      href={item.href} 
+                      className={`${styles.mobileDropdownItem} ${isActive(item.href) ? styles.active : ''}`}
+                      onClick={toggleMobileMenu}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             <div className={styles.mobileDropdown}>
               <div 

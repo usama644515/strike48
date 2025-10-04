@@ -1,0 +1,124 @@
+.definition {
+  padding: 4rem 0;
+  background: white;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.content {
+  padding-right: 2rem;
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #1a202c;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icon {
+  font-size: 2rem;
+}
+
+.text {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #4a5568;
+}
+
+.text p {
+  margin-bottom: 1.5rem;
+}
+
+.text p:last-child {
+  margin-bottom: 0;
+}
+
+.sidebar {
+  position: sticky;
+  top: 2rem;
+}
+
+.keyTraits {
+  background: #fffbf0;
+  border: 2px solid #F0C51C;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.traitsTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #d97706;
+  text-align: center;
+}
+
+.traitsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.traitsList li {
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  background: white;
+  border-radius: 8px;
+  border-left: 4px solid #F0C51C;
+  font-weight: 500;
+  color: #374151;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.traitsList li:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 968px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .content {
+    padding-right: 0;
+  }
+  
+  .sidebar {
+    position: static;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .definition {
+    padding: 3rem 0;
+  }
+  
+  .keyTraits {
+    padding: 1.5rem;
+  }
+  
+  .traitsTitle {
+    font-size: 1.3rem;
+  }
+}

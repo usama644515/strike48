@@ -12,7 +12,7 @@ const KnowledgeCenterPage = () => {
       <Header />
       <main className={styles.main}>
         <HeroSection />
-        <ArticlesSection />
+        {/* <ArticlesSection /> */}
         <VideoTutorialsSection />
         <SupportSection />
       </main>
