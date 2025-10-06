@@ -43,40 +43,45 @@ const ComparisonSection = () => {
   ];
 
   return (
-    <section className={styles.comparison}>
-      <div className={styles.container}>
-        <h2 className={styles.title}>Traditional vs. Agentic Log Management</h2>
-        <p className={styles.subtitle}>See how agentic approaches transform security operations</p>
-        
-        <div className={styles.comparisonTable}>
-          <div className={styles.tableHeader}>
-            <div className={styles.headerCell}>Aspect</div>
-            <div className={styles.headerCell}>Traditional Approach</div>
-            <div className={styles.headerCell}>Agentic Approach</div>
-          </div>
+    <div className={styles.comparison}>
+      {/* Comparison Table Section */}
+      <section className={styles.tableSection}>
+        <div className={styles.container}>
+          <h2 className={styles.title}>Traditional vs. Agentic Log Management</h2>
+          <p className={styles.subtitle}>See how agentic approaches transform security operations</p>
           
-          {comparisons.map((comparison, index) => (
-            <div key={index} className={styles.tableRow}>
-              <div className={styles.cell}>
-                <strong>{comparison.aspect}</strong>
-              </div>
-              <div className={styles.cell}>
-                <span className={styles.traditional}>{comparison.traditional}</span>
-              </div>
-              <div className={styles.cell}>
-                <span className={styles.agentic}>{comparison.agentic}</span>
-              </div>
+          <div className={styles.comparisonTable}>
+            <div className={styles.tableHeader}>
+              <div className={styles.headerCell}>Aspect</div>
+              <div className={styles.headerCell}>Traditional Approach</div>
+              <div className={styles.headerCell}>Agentic Approach</div>
             </div>
-          ))}
+            
+            {comparisons.map((comparison, index) => (
+              <div key={index} className={styles.tableRow}>
+                <div className={styles.cell}>
+                  <strong>{comparison.aspect}</strong>
+                </div>
+                <div className={styles.cell}>
+                  <span className={styles.traditional}>{comparison.traditional}</span>
+                </div>
+                <div className={styles.cell}>
+                  <span className={styles.agentic}>{comparison.agentic}</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+      </section>
 
-        {/* Radar Chart Section */}
-        <div className={styles.radarSection}>
-          <h3 className={styles.radarTitle}>Agentic Log Management vs. Point Solutions</h3>
-          <p className={styles.radarSubtitle}>Understanding the relative strengths of Agentic Log Management across business drivers</p>
+      {/* Radar Chart Section - Exact match to target HTML */}
+      <section className={styles.radarSection}>
+        <div className={styles.radarContainer}>
+          <h2 className={styles.radarTitle}>Agentic Log Management vs. Point Solutions</h2>
+          <p className={styles.radarSubtitle}>Understanding the relative strengths of Agentic Log Management across business drivers.</p>
           
           {/* Radar Chart */}
-          <div className={styles.radarContainer}>
+          <div className={styles.radarChartContainer}>
             <svg viewBox="0 0 560 560" className={styles.radarChart}>
               <defs>
                 <linearGradient id="agGold" x1="0" y1="0" x2="1" y2="1">
@@ -126,7 +131,7 @@ const ComparisonSection = () => {
 
           {/* Key Takeaways Section */}
           <div className={styles.keyTakeaways}>
-            <h4 className={styles.keyTakeawaysTitle}>Key Takeaways</h4>
+            <h3 className={styles.keyTakeawaysTitle}>Key Takeaways</h3>
             <div className={styles.keyTakeawaysGrid}>
               {keyTakeaways.map((takeaway, index) => (
                 <div key={index} className={styles.takeawayItem}>
@@ -144,8 +149,8 @@ const ComparisonSection = () => {
             <p>The key takeaway is that Agentic Log Management is <em>balanced and holistic</em>, reducing the need for multiple point solutions while delivering measurable business value across cost, speed, adoption, automation, and compliance.</p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 
