@@ -34,6 +34,14 @@ const ComparisonSection = () => {
     }
   ];
 
+  const keyTakeaways = [
+    "Agentic Log Management delivers balanced performance across all business drivers",
+    "Reduces costs by 40-60% through in-place data querying and reduced tool sprawl",
+    "Accelerates resolution time from hours to milliseconds with closed-loop automation",
+    "Easier adoption with natural language interface vs. complex scripting",
+    "Provides comprehensive coverage across security, observability, and compliance domains"
+  ];
+
   return (
     <section className={styles.comparison}>
       <div className={styles.container}>
@@ -114,6 +122,19 @@ const ComparisonSection = () => {
                 <text x="240" y="471">Traditional SIEM</text>
               </g>
             </svg>
+          </div>
+
+          {/* Key Takeaways Section */}
+          <div className={styles.keyTakeaways}>
+            <h4 className={styles.keyTakeawaysTitle}>Key Takeaways</h4>
+            <div className={styles.keyTakeawaysGrid}>
+              {keyTakeaways.map((takeaway, index) => (
+                <div key={index} className={styles.takeawayItem}>
+                  <div className={styles.takeawayIcon}>✓</div>
+                  <span>{takeaway}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Explanation */}
