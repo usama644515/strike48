@@ -1,157 +1,243 @@
+'use client';
+import React, { useEffect } from 'react';
 import styles from './ComparisonSection.module.css';
 
-const ComparisonSection = () => {
-  const comparisons = [
-    {
-      aspect: "Alert Generation",
-      traditional: "Rule-based, static thresholds generate high volumes of false positives",
-      agentic: "AI-driven anomaly detection with contextual understanding reduces false positives by 90%"
-    },
-    {
-      aspect: "Threat Detection", 
-      traditional: "Reactive - relies on known patterns and signatures",
-      agentic: "Proactive - identifies novel threats through behavioral analysis"
-    },
-    {
-      aspect: "Response Time",
-      traditional: "Minutes to hours for human analysis and response",
-      agentic: "Milliseconds for automated containment and mitigation"
-    },
-    {
-      aspect: "Learning Capability",
-      traditional: "Static rules require manual updates and tuning",
-      agentic: "Continuous learning adapts to new threats and environment changes"
-    },
-    {
-      aspect: "Correlation Ability",
-      traditional: "Limited to pre-defined correlation rules across known data sources",
-      agentic: "Advanced AI correlates events across all data sources, identifying complex attacks"
-    },
-    {
-      aspect: "Operational Overhead",
-      traditional: "High - requires constant manual tuning and alert triage",
-      agentic: "Low - automated analysis and intelligent prioritization"
-    }
-  ];
+export default function ComparisonSecton() {
+  useEffect(() => {
+    const axes = [
+      "Speed to Detect",
+      "Speed to Resolve",
+      "Automation Level",
+      "Storage Efficiency",
+      "Ease of Onboarding",
+      "Platform Consolidation",
+      "Coverage Breadth",
+      "Auditability/Repeatability"
+    ];
 
-  const keyTakeaways = [
-    "Agentic Log Management delivers balanced performance across all business drivers",
-    "Reduces costs by 40-60% through in-place data querying and reduced tool sprawl",
-    "Accelerates resolution time from hours to milliseconds with closed-loop automation",
-    "Easier adoption with natural language interface vs. complex scripting",
-    "Provides comprehensive coverage across security, observability, and compliance domains"
-  ];
+    const series = [
+      { name: 'Agentic LM', color: '#2763EF', values: [9, 9, 10, 8, 8, 10, 9, 9] },
+      { name: 'SIEM', color: '#475569', values: [8, 6, 4, 4, 5, 5, 8, 9] },
+      { name: 'Observability/APM', color: '#F4C005', values: [7, 6, 5, 6, 8, 4, 6, 6] },
+      { name: 'Data Lake', color: '#dc2626', values: [4, 4, 3, 9, 5, 3, 7, 5] },
+      { name: 'SOAR', color: '#059669', values: [5, 7, 7, 5, 6, 4, 6, 7] },
+    ];
+
+    const drawRadarChart = () => {
+      const svg = document.getElementById('radar');
+      if (!svg) return;
+      svg.innerHTML = '';
+
+      const size = 650;
+      const cx = size / 2;
+      const cy = size / 2;
+      const radius = 240;
+      const levels = 5;
+
+      const polar = (i, value) => {
+        const angle = (Math.PI * 2 * i / axes.length) - Math.PI / 2;
+        const r = (value / 10) * radius;
+        return [cx + r * Math.cos(angle), cy + r * Math.sin(angle)];
+      };
+
+      const createElement = (tag, attrs = {}) => {
+        const element = document.createElementNS('http://www.w3.org/2000/svg', tag);
+        Object.entries(attrs).forEach(([key, value]) => {
+          element.setAttribute(key, value);
+        });
+        return element;
+      };
+
+      // Helper: hex to rgba
+      const hexToRgba = (hex, alpha) => {
+        const h = hex.replace('#', '');
+        const bigint = parseInt(h.length === 3 ? h.split('').map(c => c + c).join('') : h, 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return `rgba(${r},${g},${b},${alpha})`;
+      };
+
+      // Grid rings
+      for (let l = 1; l <= levels; l++) {
+        const ring = createElement('circle', {
+          cx,
+          cy,
+          r: radius * l / levels,
+          fill: 'none',
+          stroke: 'rgba(0,0,0,0.2)',
+          'stroke-dasharray': '4 6'
+        });
+        svg.appendChild(ring);
+      }
+
+      // Spokes + Labels
+      axes.forEach((axis, i) => {
+        const [x, y] = polar(i, 10);
+        const spoke = createElement('line', {
+          x1: cx,
+          y1: cy,
+          x2: x,
+          y2: y,
+          stroke: 'rgba(0,0,0,0.25)'
+        });
+        svg.appendChild(spoke);
+
+        // Labels (with .axisLabel class for enforced black text)
+        const [lx, ly] = polar(i, 11.5);
+        const label = createElement('text', {
+          x: lx,
+          y: ly,
+          class: 'axisLabel',
+          'text-anchor': lx < cx ? 'end' : (Math.abs(lx - cx) < 8 ? 'middle' : 'start'),
+          'dominant-baseline': ly < cy ? 'auto' : 'hanging',
+        });
+        label.textContent = axis;
+        svg.appendChild(label);
+      });
+
+      // Polygons
+      series.forEach(s => {
+        const points = s.values.map((v, i) => polar(i, v).join(',')).join(' ');
+
+        // Fill
+        const fill = createElement('polygon', {
+          points,
+          fill: hexToRgba(s.color, 0.22),
+          stroke: 'none'
+        });
+        svg.appendChild(fill);
+
+        // Outline
+        const stroke = createElement('polygon', {
+          points,
+          fill: 'none',
+          stroke: s.color,
+          'stroke-width': 2
+        });
+        svg.appendChild(stroke);
+
+        // Dots
+        s.values.forEach((v, i) => {
+          const [x, y] = polar(i, v);
+          const dot = createElement('circle', {
+            cx: x,
+            cy: y,
+            r: 3.5,
+            fill: s.color,
+            stroke: '#ffffff',
+            'stroke-width': 1
+          });
+          svg.appendChild(dot);
+        });
+      });
+    };
+
+    drawRadarChart();
+  }, []);
 
   return (
-    <div className={styles.comparison}>
-      {/* Comparison Table Section */}
-      <section className={styles.tableSection}>
-        <div className={styles.container}>
-          <h2 className={styles.title}>Traditional vs. Agentic Log Management</h2>
-          <p className={styles.subtitle}>See how agentic approaches transform security operations</p>
-          
-          <div className={styles.comparisonTable}>
-            <div className={styles.tableHeader}>
-              <div className={styles.headerCell}>Aspect</div>
-              <div className={styles.headerCell}>Traditional Approach</div>
-              <div className={styles.headerCell}>Agentic Approach</div>
-            </div>
-            
-            {comparisons.map((comparison, index) => (
-              <div key={index} className={styles.tableRow}>
-                <div className={styles.cell}>
-                  <strong>{comparison.aspect}</strong>
-                </div>
-                <div className={styles.cell}>
-                  <span className={styles.traditional}>{comparison.traditional}</span>
-                </div>
-                <div className={styles.cell}>
-                  <span className={styles.agentic}>{comparison.agentic}</span>
-                </div>
+    <div className={styles.container}>
+      {/* Header */}
+      <header className={styles.header}>
+        <div className={styles.logo}>
+          <span className={styles.pickaxe}></span>
+          <span>Strike48 • Agentic Log Management</span>
+        </div>
+        <div className={styles.hero}>
+          <h1>Agentic Log Management vs. Point Solutions</h1>
+          <p className={styles.lead}>
+            From collecting and visualizing logs to <em>orchestrating outcomes</em> with specialized AI agents. 
+            Compare agentic teams to SIEM, Observability/APM, Data Lakes, and SOAR.
+          </p>
+          <div className={styles.ctaRow}>
+            <a className={styles.btn} href="#comparison">View Comparison</a>
+            <a className={`${styles.btn} ${styles.alt}`} href="#definition">Read Definition</a>
+          </div>
+        </div>
+      </header>
+
+      {/* Main */}
+      <main className={styles.main}>
+        {/* Definition */}
+        <section id="definition" className={styles.grid}>
+          <div className={styles.card}>
+            <h2>Definition & Introduction</h2>
+            <p>
+              Agentic Log Management replaces siloed tools with a collaborative team of purpose-built AI agents 
+              that monitor, investigate, and <strong>remediate</strong> across your stack.
+            </p>
+            <div className={styles.kpis}>
+              <div className={styles.kpi}>
+                <div className={styles.big}>↓ 60–80%</div>
+                <div>Mean time to resolve (with automation)</div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Radar Chart Section - Exact match to target HTML */}
-      <section className={styles.radarSection}>
-        <div className={styles.radarContainer}>
-          <h2 className={styles.radarTitle}>Agentic Log Management vs. Point Solutions</h2>
-          <p className={styles.radarSubtitle}>Understanding the relative strengths of Agentic Log Management across business drivers.</p>
-          
-          {/* Radar Chart */}
-          <div className={styles.radarChartContainer}>
-            <svg viewBox="0 0 560 560" className={styles.radarChart}>
-              <defs>
-                <linearGradient id="agGold" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#FDE68A"/>
-                  <stop offset="100%" stopColor="#F59E0B"/>
-                </linearGradient>
-              </defs>
-              <g transform="translate(280,280)">
-                {/* radial grid */}
-                <circle r="200" fill="none" stroke="#E5E7EB"/>
-                <circle r="140" fill="none" stroke="#E5E7EB"/>
-                <circle r="80"  fill="none" stroke="#E5E7EB"/>
-                {/* axes */}
-                <g stroke="#CBD5E1">
-                  <line x1="0" y1="0" x2="0" y2="-220"/>
-                  <line x1="0" y1="0" x2="190" y2="-110"/>
-                  <line x1="0" y1="0" x2="190" y2="110"/>
-                  <line x1="0" y1="0" x2="0" y2="220"/>
-                  <line x1="0" y1="0" x2="-190" y2="110"/>
-                  <line x1="0" y1="0" x2="-190" y2="-110"/>
-                </g>
-                {/* labels */}
-                <g fontSize="12" fill="#374151" fontWeight="600">
-                  <text x="0" y="-240" textAnchor="middle">Cost Efficiency</text>
-                  <text x="205" y="-120" textAnchor="start">Resolution Speed</text>
-                  <text x="205" y="125" textAnchor="start">Ease of Adoption</text>
-                  <text x="0" y="240" textAnchor="middle">Automation ROI</text>
-                  <text x="-205" y="125" textAnchor="end">Coverage</text>
-                  <text x="-205" y="-120" textAnchor="end">Compliance</text>
-                </g>
-
-                {/* Agentic polygon */}
-                <polygon points="0,-200 170,-98 175,90 0,180 -165,95 -160,-88" fill="url(#agGold)" fillOpacity="0.35" stroke="#F59E0B" strokeWidth="2"/>
-
-                {/* SIEM polygon (example weaker shape) */}
-                <polygon points="0,-90 110,-60 120,40 0,70 -130,85 -160,-120" fill="#60A5FA" fillOpacity="0.18" stroke="#3B82F6"/>
-              </g>
-              {/* Legend */}
-              <g fontSize="12" fill="#111827">
-                <rect x="20" y="460" width="14" height="14" fill="url(#agGold)" stroke="#F59E0B"/>
-                <text x="40" y="471">Agentic Log Management</text>
-                <rect x="220" y="460" width="14" height="14" fill="#60A5FA" stroke="#3B82F6"/>
-                <text x="240" y="471">Traditional SIEM</text>
-              </g>
-            </svg>
+              <div className={styles.kpi}>
+                <div className={styles.big}>↑ 30–50%</div>
+                <div>Coverage from cross-domain correlation</div>
+              </div>
+            </div>
+            <h3>Why it matters</h3>
+            <ul>
+              <li><strong>Faster outcomes:</strong> Agents execute playbooks end-to-end.</li>
+              <li><strong>Lower cost:</strong> Pay for <em>decisions</em>, not raw storage.</li>
+              <li><strong>Less training:</strong> Natural-language workflows.</li>
+              <li><strong>Fewer tools:</strong> Replace stacks with one coordinated team.</li>
+            </ul>
           </div>
 
-          {/* Key Takeaways Section */}
-          <div className={styles.keyTakeaways}>
-            <h3 className={styles.keyTakeawaysTitle}>Key Takeaways</h3>
-            <div className={styles.keyTakeawaysGrid}>
-              {keyTakeaways.map((takeaway, index) => (
-                <div key={index} className={styles.takeawayItem}>
-                  <div className={styles.takeawayIcon}>✓</div>
-                  <span>{takeaway}</span>
-                </div>
-              ))}
+          <div className={styles.card}>
+            <h2>How it works</h2>
+            <ul>
+              <li><strong>Specialized agents</strong> for detection & remediation.</li>
+              <li><strong>Policy guardrails</strong> for safe automation.</li>
+              <li><strong>Memory & context</strong> for learning from incidents.</li>
+              <li><strong>Human-in-the-loop</strong> for oversight & rollback.</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Comparison Radar */}
+        <section id="comparison" className={styles.card}>
+          <h2>Comparison Radar</h2>
+          <p className={styles.lead}>Scores are illustrative (0–10, higher is better).</p>
+          <div className={styles.radarWrap}>
+            <svg id="radar" viewBox="0 0 650 650" className={styles.radar}></svg>
+          </div>
+
+          {/* Legend */}
+          <div className={styles.legend}>
+            <label><span className={`${styles.dot} ${styles.agentic}`}></span><span>Agentic LM</span></label>
+            <label><span className={`${styles.dot} ${styles.siem}`}></span><span>SIEM</span></label>
+            <label><span className={`${styles.dot} ${styles.obs}`}></span><span>Observability/APM</span></label>
+            <label><span className={`${styles.dot} ${styles.datalake}`}></span><span>Data Lake</span></label>
+            <label><span className={`${styles.dot} ${styles.soar}`}></span><span>SOAR</span></label>
+          </div>
+        </section>
+
+        {/* Key Takeaways */}
+        <section className={styles.grid}>
+          <div className={styles.card}>
+            <h2>Key Takeaways</h2>
+            <ul>
+              <li><strong>Agentic LM</strong> excels in automation and speed.</li>
+              <li><strong>SIEM</strong> is strong in auditability but slower.</li>
+              <li><strong>Observability/APM</strong> good for telemetry, less for security.</li>
+              <li><strong>Data Lakes</strong> excel in storage, weaker in correlation.</li>
+              <li><strong>SOAR</strong> depends on integration quality.</li>
+            </ul>
+          </div>
+
+          <div className={styles.card}>
+            <h2>Make it yours</h2>
+            <p>Adjust weights, axes, and scores for a tailored comparison.</p>
+            <div className={styles.ctaRow}>
+              <a className={styles.btn} href="#">Request a tailored model</a>
+              <a className={`${styles.btn} ${styles.alt}`} href="#">Download whitepaper</a>
             </div>
           </div>
-
-          {/* Explanation */}
-          <div className={styles.radarExplanation}>
-            <p><strong>What the chart shows:</strong> Agentic Log Management covers all six business drivers evenly. It reduces costs by querying data in place, speeds up resolution through closed-loop automation, requires less training since analysts supervise instead of scripting, delivers higher ROI on automation, spans multiple domains (security, observability, identity, compliance), and provides full auditability.</p>
-            <p><strong>By contrast:</strong> Traditional SIEMs (blue shape) excel in compliance and log coverage but fall short in cost efficiency and resolution speed. Other point solutions (not shown here but comparable) each over-index on one dimension—SOAR on automation, APM on performance, XDR on endpoint depth—but leave critical gaps elsewhere.</p>
-            <p>The key takeaway is that Agentic Log Management is <em>balanced and holistic</em>, reducing the need for multiple point solutions while delivering measurable business value across cost, speed, adoption, automation, and compliance.</p>
-          </div>
-        </div>
-      </section>
+        </section>
+      </main>
     </div>
   );
-};
-
-export default ComparisonSection;
+}

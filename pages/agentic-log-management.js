@@ -2,6 +2,7 @@ import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import HeroSection from '../components/AgenticLogManagement/HeroSection';
 import DefinitionSection from '../components/AgenticLogManagement/DefinitionSection';
+import AgenticLogManagementLanding from '../components/AgenticLogManagement/LandingPage';
 import WhyItMattersSection from '../components/AgenticLogManagement/WhyItMattersSection';
 import ComparisonSection from '../components/AgenticLogManagement/ComparisonSection';
 import FeaturesSection from '../components/AgenticLogManagement/FeaturesSection';
@@ -14,7 +15,9 @@ const AgenticLogManagementPage = () => {
       <Header />
       <main className={styles.main}>
         {/* <HeroSection /> */}
-        {/* <DefinitionSection /> */}
+        <AgenticLogManagementLanding />
+        <DefinitionSection />
+        
         <WhyItMattersSection />
         <ComparisonSection />
         {/* <FeaturesSection /> */}

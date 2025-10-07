@@ -1,0 +1,249 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);
+  color: #1e293b;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  overflow: hidden;
+  user-select: text; /* allow text selection */
+}
+
+.heroBackground {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(39, 99, 239, 0.15), transparent 40%),
+    radial-gradient(circle at 80% 0%, rgba(240, 191, 7, 0.12), transparent 35%);
+  pointer-events: none; /* ensures clicks pass through */
+}
+
+.heroContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem;
+}
+
+.heroGrid {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .heroGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.accentText {
+  color: #2763EF;
+}
+
+.heroDescription {
+  margin-top: 1.5rem;
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: #334155;
+  max-width: 42rem;
+}
+
+.boldText {
+  font-weight: 600;
+}
+
+/* Buttons */
+.heroButtons {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.primaryButton, .secondaryButton {
+  border-radius: 12px;
+  padding: 0.9rem 1.8rem;
+  font-weight: 500;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.primaryButton {
+  background-color: #2763EF;
+  color: white;
+  border: none;
+}
+
+.primaryButton:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(39,99,239,0.3);
+}
+
+.secondaryButton {
+  background-color: transparent;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.secondaryButton:hover {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+  transform: translateY(-2px);
+}
+
+.buttonIcon {
+  margin-left: 0.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Hero Features */
+.heroFeatures {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+@media (min-width: 640px) {
+  .heroFeatures {
+    flex-direction: row;
+    gap: 1.25rem;
+  }
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.featureIcon {
+  width: 1rem;
+  height: 1rem;
+  color: #2763EF;
+}
+
+/* Hero Visual Section */
+.heroCard {
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default; /* prevent pointer cursor on card area */
+}
+
+.heroCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px -5px rgba(39,99,239,0.15);
+}
+
+.valueGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.valueCard {
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  background: white;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.valueCard:hover {
+  border-color: #2763EF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(39,99,239,0.1);
+}
+
+.valueCardContent {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.valueCardIcon {
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  padding: 0.5rem;
+}
+
+.cardIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #2763EF;
+}
+
+.valueCardTitle {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.valueCardSubtitle {
+  font-size: 0.8rem;
+  color: #475569;
+}
+
+/* Prospector Banner */
+.prospectorBanner {
+  margin-top: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  background: linear-gradient(135deg, #eff6ff 0%, white 100%);
+  padding: 1.25rem;
+}
+
+.prospectorContent {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.prospectorIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #2763EF;
+}
+
+.prospectorText {
+  font-size: 0.9rem;
+  color: #334155;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2rem;
+  }
+  .heroButtons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .valueGrid {
+    grid-template-columns: 1fr;
+  }
+}
