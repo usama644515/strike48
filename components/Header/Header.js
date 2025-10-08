@@ -11,7 +11,6 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileDropdowns, setMobileDropdowns] = useState({
-    agentic: false,
     knowledge: false,
     strike48: false
   });
@@ -89,15 +88,8 @@ const Header = () => {
     </svg>
   );
 
-  // Dropdown menu data
+  // Dropdown menu data (only knowledge and strike48 remain)
   const dropdownMenus = {
-    agentic: [
-      { name: 'Security', href: '/security' },
-      { name: 'Compliance', href: '/compliance' },
-      { name: 'Finance', href: '/finance' },
-      { name: 'Marketing', href: '/marketing' },
-      { name: 'Build your own Agent', href: '/build-your-own-agent' },
-    ],
     knowledge: [
       { name: 'Blog', href: '/blog' },
       { name: 'Education Videos', href: '/knowledge-center' },
@@ -130,30 +122,13 @@ const Header = () => {
           
           {/* Desktop Navigation */}
           <nav className={styles.nav}>
-            {/* Agentic Solutions Dropdown */}
-            <div 
-              className={styles.navItem}
-              onMouseEnter={() => handleDropdownEnter('agentic')}
-              onMouseLeave={handleDropdownLeave}
+            {/* Agentic Solutions - Now a simple menu item */}
+            <Link 
+              href="/agentic-solutions" 
+              className={isActive('/agentic-solutions') ? styles.active : ''}
             >
-              <div className={`${styles.dropdownTrigger} ${isDropdownActive(dropdownMenus.agentic) ? styles.active : ''}`}>
-                <Link href="">Agentic Solutions</Link>
-                <ChevronDownIcon />
-              </div>
-              {activeDropdown === 'agentic' && (
-                <div className={styles.dropdown}>
-                  {dropdownMenus.agentic.map((item) => (
-                    <Link 
-                      key={item.name} 
-                      href={item.href}
-                      className={isActive(item.href) ? styles.active : ''}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+              Agentic Solutions
+            </Link>
 
             <Link 
               href="/testimonials" 
@@ -290,29 +265,14 @@ const Header = () => {
               </Link>
             </div>
 
-            <div className={styles.mobileDropdown}>
-              <div 
-                className={`${styles.mobileDropdownHeader} ${isDropdownActive(dropdownMenus.agentic) ? styles.active : ''}`}
-                onClick={() => toggleMobileDropdown('agentic')}
-              >
-                <span>Agentic Solutions</span>
-                <ChevronDownIcon />
-              </div>
-              {mobileDropdowns.agentic && (
-                <div className={styles.mobileDropdownContent}>
-                  {dropdownMenus.agentic.map((item) => (
-                    <Link 
-                      key={item.name} 
-                      href={item.href} 
-                      className={`${styles.mobileDropdownItem} ${isActive(item.href) ? styles.active : ''}`}
-                      onClick={toggleMobileMenu}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+            {/* Agentic Solutions - Now a simple mobile menu item */}
+            <Link 
+              href="/agentic-solutions" 
+              className={`${styles.mobileNavItem} ${isActive('/agentic-solutions') ? styles.active : ''}`}
+              onClick={toggleMobileMenu}
+            >
+              Agentic Solutions
+            </Link>
 
             <Link 
               href="/testimonials" 
