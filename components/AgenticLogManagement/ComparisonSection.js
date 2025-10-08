@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import styles from './ComparisonSection.module.css';
 
-export default function ComparisonSecton() {
+export default function ComparisonSection() {
   useEffect(() => {
     const axes = [
       "Speed to Detect",
@@ -150,10 +150,10 @@ export default function ComparisonSecton() {
             From collecting and visualizing logs to <em>orchestrating outcomes</em> with specialized AI agents. 
             Compare agentic teams to SIEM, Observability/APM, Data Lakes, and SOAR.
           </p>
-          <div className={styles.ctaRow}>
+          {/* <div className={styles.ctaRow}>
             <a className={styles.btn} href="#comparison">View Comparison</a>
             <a className={`${styles.btn} ${styles.alt}`} href="#definition">Read Definition</a>
-          </div>
+          </div> */}
         </div>
       </header>
 
@@ -215,7 +215,7 @@ export default function ComparisonSecton() {
           </div>
         </section>
 
-        {/* Key Takeaways */}
+        {/* Key Takeaways - Only one card now */}
         <section className={styles.grid}>
           <div className={styles.card}>
             <h2>Key Takeaways</h2>
@@ -226,15 +226,6 @@ export default function ComparisonSecton() {
               <li><strong>Data Lakes</strong> excel in storage, weaker in correlation.</li>
               <li><strong>SOAR</strong> depends on integration quality.</li>
             </ul>
-          </div>
-
-          <div className={styles.card}>
-            <h2>Make it yours</h2>
-            <p>Adjust weights, axes, and scores for a tailored comparison.</p>
-            <div className={styles.ctaRow}>
-              <a className={styles.btn} href="#">Request a tailored model</a>
-              <a className={`${styles.btn} ${styles.alt}`} href="#">Download whitepaper</a>
-            </div>
           </div>
         </section>
       </main>

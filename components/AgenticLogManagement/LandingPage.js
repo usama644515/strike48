@@ -8,7 +8,7 @@ export default function AgenticLogManagementLanding() {
   const handleSectionClick = (e) => {
     // Prevent section click when clicking buttons or links
     if (e.target.closest("a, button")) return;
-    window.location.href = "#cta"; // Change to your desired link or section
+    window.location.href = "#definition"; // Now links to definition section
   };
 
   return (
@@ -37,14 +37,15 @@ export default function AgenticLogManagementLanding() {
                 across security, compliance, observability, and FinOps— all in a single workflow-integrated platform.
               </p>
 
-              {/* Buttons */}
+              {/* Buttons - Only Download Whitepaper */}
               <div className={styles.heroButtons}>
-                <a href="#cta" className={`${styles.primaryButton} ${styles.largeButton}`}>
-                  Start Free Trial <ArrowRight className={styles.buttonIcon} />
-                </a>
-
-                <a href="#whitepaper" className={`${styles.secondaryButton} ${styles.largeButton}`}>
-                  Download Whitepaper
+                <a 
+                  href="https://docs.google.com/document/d/1p2U2d6LwH5lhy6R7o5Y5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z/edit?usp=sharing" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={`${styles.primaryButton} ${styles.largeButton}`}
+                >
+                  Download Whitepaper <ArrowRight className={styles.buttonIcon} />
                 </a>
               </div>
 

@@ -2,7 +2,7 @@ import styles from './DefinitionSection.module.css';
 
 const DefinitionSection = () => {
   return (
-    <section className={styles.definition}>
+    <section id="definition" className={styles.definition}>
       <div className={styles.container}>
         <div className={styles.grid}>
           <div className={styles.content}>

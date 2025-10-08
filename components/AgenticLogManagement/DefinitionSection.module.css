@@ -1,5 +1,5 @@
 .definition {
-  padding: 4rem 0;
+  padding: 2rem 0; /* Reduced padding */
   background: white;
 }
 
@@ -111,7 +111,7 @@
 
 @media (max-width: 768px) {
   .definition {
-    padding: 3rem 0;
+    padding: 1.5rem 0; /* Further reduced on mobile */
   }
   
   .keyTraits {

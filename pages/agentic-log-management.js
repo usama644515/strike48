@@ -14,13 +14,10 @@ const AgenticLogManagementPage = () => {
     <div className={styles.container}>
       <Header />
       <main className={styles.main}>
-        {/* <HeroSection /> */}
         <AgenticLogManagementLanding />
         <DefinitionSection />
-        
         <WhyItMattersSection />
         <ComparisonSection />
-        {/* <FeaturesSection /> */}
         <CtaSection />
       </main>
       <Footer />

@@ -1,5 +1,5 @@
 .container {
-  min-height: 100vh;
+  min-height: 80vh;
   background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);
   color: #1e293b;
 }
@@ -23,7 +23,7 @@
 .heroContent {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 6rem 1.5rem;
+  padding: 4rem 1.5rem 3rem; /* Reduced top padding */
 }
 
 .heroGrid {
@@ -245,5 +245,8 @@
   }
   .valueGrid {
     grid-template-columns: 1fr;
+  }
+  .heroContent {
+    padding: 3rem 1.5rem 2rem; /* Further reduced on mobile */
   }
 }

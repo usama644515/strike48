@@ -270,21 +270,19 @@
   background: white;
   border-radius: 16px;
   padding: 20px;
-  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); */
-  /* border: 1px solid rgba(39, 99, 239, 0.1); */
 }
 
 .radar {
   width: 100%;
   height: 100%;
   display: block;
+  overflow: visible;
 }
 
 .axisLabel {
   font-size: 12px;
   font-weight: 600;
-  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.8));
-  fill: #4b5563;
+  fill: #000000 !important;
 }
 
 /* Legend Styles */
@@ -347,29 +345,6 @@
   font-weight: 500;
 }
 
-.note {
-  color: #4b5563;
-  font-size: 13px;
-  margin-top: 8px;
-  text-align: center;
-  line-height: 1.4;
-  background: rgba(39, 99, 239, 0.05);
-  padding: 12px;
-  border-radius: 8px;
-  border-left: 3px solid #2763EF;
-}
-
-/* Footer */
-.footer {
-  color: #4b5563;
-  text-align: center;
-  padding: 24px;
-  font-size: 13px;
-  border-top: 1px solid rgba(39, 99, 239, 0.1);
-  margin-top: 40px;
-  background: rgba(39, 99, 239, 0.02);
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .header {
@@ -428,37 +403,4 @@
   .radarWrap {
     padding: 10px;
   }
-}
-.radarWrap {
-  position: relative;
-  aspect-ratio: 1 / 1;
-  width: 100%;
-  max-width: 620px;
-  margin: 0 auto;
-  background: white;
-  border-radius: 16px;
-  padding: 30px; /* Increased padding */
-  overflow: visible; /* Prevent clipping */
-}
-
-.radar {
-  width: 100%;
-  height: 100%;
-  display: block;
-  overflow: visible;
-}
-
-.axisLabel {
-  font-size: 12px;
-  font-weight: 600;
-  fill: #000000 !important; /* Force black text */
-}
-/* Force black label text inside radar */
-#radar text,
-.axisLabel {
-  fill: #000000 !important;
-  color: #000000 !important;
-  opacity: 1 !important;
-  font-weight: 600;
-  mix-blend-mode: normal !important;
 }
