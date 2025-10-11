@@ -1,41 +1,478 @@
+/* components/HeroSection.module.css */
+.container {
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+/* Hero Section */
 .hero {
-  background: linear-gradient(135deg, #0d1729 0%, #1a2b47 100%);
-  color: white;
-  padding: 4rem 0;
-  text-align: center;
+  position: relative;
+  background-color: #fff;
+  color: #1f2937;
+  padding-top: 8rem;
+  padding-bottom: 5rem;
+}
+
+.heroBackground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.8;
+}
+
+.heroImage {
+  object-fit: cover;
 }
 
 .heroContent {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 10;
+}
+
+@media (min-width: 1024px) {
+  .heroContent {
+    padding: 0 2rem;
+  }
+}
+
+.heroText {
+  max-width: 64rem;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .heroTitle {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 2.25rem;
+  font-weight: bold;
   margin-bottom: 1.5rem;
-  line-height: 1.2;
+  color: #0065B4;
+}
+
+@media (min-width: 1024px) {
+  .heroTitle {
+    font-size: 3rem;
+  }
+}
+
+.heroSubtitle {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .heroSubtitle {
+    font-size: 2.25rem;
+  }
 }
 
 .heroDescription {
-  font-size: 1.25rem;
-  line-height: 1.6;
-  color: #cbd5e0;
-  max-width: 800px;
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: #374151;
+}
+
+/* Introduction Section */
+.introduction {
+  padding: 5rem 0;
+  background-color: #fff;
+}
+
+.introductionContent {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 1024px) {
+  .introductionContent {
+    padding: 0 2rem;
+  }
+}
+
+.introductionText {
+  font-size: 1.125rem;
+  color: #374151;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+
+.introductionHighlight {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Four Pillars Section */
+.pillars {
+  padding: 5rem 0;
+  background-color: #f9fafb;
+}
+
+.pillarsContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 1024px) {
+  .pillarsContainer {
+    padding: 0 2rem;
+  }
+}
+
+.pillarsTitle {
+  font-size: 1.875rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+@media (min-width: 1024px) {
+  .pillarsTitle {
+    font-size: 2.25rem;
+  }
+}
+
+.pillarsDescription {
+  text-align: center;
+  color: #4b5563;
+  margin-bottom: 4rem;
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pillarsGrid {
+  display: grid;
+  gap: 2rem;
+  max-width: 80rem;
   margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-  .hero {
-    padding: 3rem 0;
+@media (min-width: 768px) {
+  .pillarsGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  .heroTitle {
-    font-size: 2rem;
+}
+
+.pillarCard {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 0.125rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s;
+}
+
+.pillarCard:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.pillarHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.pillarIcon {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  background-color: #EFBF04;
+  border-radius: 0.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #1a2332;
+}
+
+.pillarTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.pillarDescription {
+  color: #4b5563;
+}
+
+.featuresList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  color: #374151;
+}
+
+.featureIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #2563eb;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.impactSection {
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.impactLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #EFBF04;
+  margin-bottom: 0.5rem;
+}
+
+.impactText {
+  color: #374151;
+  line-height: 1.75;
+}
+
+/* What Sets Us Apart Section */
+.differentiators {
+  padding: 5rem 0;
+  background-color: #fff;
+}
+
+.differentiatorsContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 1024px) {
+  .differentiatorsContainer {
+    padding: 0 2rem;
   }
-  
-  .heroDescription {
-    font-size: 1.1rem;
+}
+
+.differentiatorsTitle {
+  font-size: 1.875rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4rem;
+  color: #111827;
+}
+
+@media (min-width: 1024px) {
+  .differentiatorsTitle {
+    font-size: 2.25rem;
   }
+}
+
+.differentiatorsGrid {
+  display: grid;
+  gap: 2rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .differentiatorsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .differentiatorsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.differentiatorItem {
+  text-align: center;
+}
+
+.differentiatorIcon {
+  width: 4rem;
+  height: 4rem;
+  background-color: #EFBF04;
+  border-radius: 0.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem auto;
+  border-radius: 5px;
+}
+
+.diffIcon {
+  width: 2rem;
+  height: 2rem;
+  color: #1a2332;
+}
+
+.differentiatorTitle {
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 0.75rem;
+}
+
+.differentiatorDescription {
+  color: #4b5563;
+  line-height: 1.75;
+}
+
+/* Customer Outcomes Section */
+.outcomes {
+  padding: 5rem 0;
+  background-color: #f9fafb;
+}
+
+.outcomesContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 1024px) {
+  .outcomesContainer {
+    padding: 0 2rem;
+  }
+}
+
+.outcomesTitle {
+  font-size: 1.875rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #111827;
+}
+
+@media (min-width: 1024px) {
+  .outcomesTitle {
+    font-size: 2.25rem;
+  }
+}
+
+.outcomesGrid {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .outcomesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .outcomesGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.outcomeCard {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 0.125rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.outcomeIcon {
+  width: 2rem;
+  height: 2rem;
+  color: #EFBF04;
+  margin: 0 auto 0.75rem auto;
+}
+
+.outcomeText {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Bottom Line / CTA Section */
+.cta {
+  padding: 5rem 0;
+  color: #fff;
+}
+
+.ctaContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 1024px) {
+  .ctaContainer {
+    padding: 0 2rem;
+  }
+}
+
+.ctaContent {
+  max-width: 64rem;
+  margin: 0 auto;
+  background-color: #0065B4;
+  padding: 3rem;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.ctaTitle {
+  font-size: 1.875rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .ctaTitle {
+    font-size: 2.25rem;
+  }
+}
+
+.ctaText {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+
+.ctaHighlight {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #EFBF04;
+  margin-bottom: 2.5rem;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #EFBF04;
+  color: #1a2332;
+  padding: 1rem 2rem;
+  border-radius: 0.125rem;
+  font-weight: 600;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+
+.ctaButton:hover {
+  background-color: #d9ab04;
+}
+
+.ctaIcon {
+  width: 1.25rem;
+  height: 1.25rem;
 }

@@ -5,7 +5,7 @@
 }
 
 .heroSection {
-    background: linear-gradient(135deg, #0d1729 0%, #1a2b47 100%);
+    background: #0065B4;
   padding: 5rem 0;
   color: white;
 }
@@ -523,7 +523,7 @@
 }
 
 .newsletterCta {
-    background: linear-gradient(135deg, #0d1729 0%, #1a2b47 100%);
+    background: #0065B4;
   padding: 4rem 0;
   margin-top: 4rem;
 }

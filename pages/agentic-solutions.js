@@ -2,8 +2,7 @@ import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import HeroSection from '../components/AgenticSolutions/HeroSection';
 import SolutionsSection from '../components/AgenticSolutions/SolutionsSection';
-import StatsSection from '../components/AgenticSolutions/StatsSection';
-import styles from '../styles/agentic-log-management.module.css';
+import styles from '../styles/agenticSolution.module.css';
 
 const AgenticLogSolutionPage = () => {
   return (
@@ -12,7 +11,6 @@ const AgenticLogSolutionPage = () => {
       <main className={styles.main}>
         <HeroSection />
         <SolutionsSection />
-        <StatsSection />
       </main>
       <Footer />
     </div>

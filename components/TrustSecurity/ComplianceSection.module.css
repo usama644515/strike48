@@ -14,7 +14,7 @@
 }
 
 .complianceBadge {
-  background: linear-gradient(135deg, #0d1729 0%, #1a2b47 100%);
+  background: #009689;
   color: white;
   padding: 2.5rem;
   border-radius: 12px;

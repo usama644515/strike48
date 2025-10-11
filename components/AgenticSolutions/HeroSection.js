@@ -13,8 +13,6 @@ export default function HeroSection() {
 
   return (
     <section className={styles.heroSection}>
-      <div className={styles.heroBackground} />
-      
       <div className={styles.heroContainer}>
         <div className={styles.heroContent}>
           <motion.h1
@@ -23,9 +21,9 @@ export default function HeroSection() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className={styles.heroTitle}
           >
-            Transform Your Business with{" "}
+            Enterprise-Grade{" "}
             <span className={styles.gradientText}>
-              Agentic AI
+              Agentic Solutions
             </span>
           </motion.h1>
 
@@ -35,9 +33,7 @@ export default function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             className={styles.heroDescription}
           >
-            Deploy intelligent, scalable AI agents for security, compliance, and growth.
-            <br className={styles.lineBreak} />
-            Empower your teams with Strike48's enterprise-grade agentic platform.
+            Purpose-built AI agents for your most critical business functions
           </motion.p>
 
           <motion.div
@@ -47,7 +43,7 @@ export default function HeroSection() {
             className={styles.heroButtonContainer}
           >
             <div className={styles.buttonWrapper}>
-              <Link href="/demo" className={styles.heroButton}>
+              <Link href="/case-studies" className={styles.heroButton}>
                 <span>Explore Use Cases</span>
                 <ArrowRight />
               </Link>

@@ -21,20 +21,6 @@ export default function SolutionsSection() {
       features: ["Automated audit trails", "Regulatory monitoring", "Compliance reporting"]
     },
     {
-      icon: Network,
-      title: "Finance",
-      description: "Transform financial operations with AI agents that handle everything from fraud detection to automated reporting and financial analysis.",
-      href: "/finance",
-      features: ["Fraud detection", "Financial reporting", "Risk assessment"]
-    },
-    {
-      icon: Sparkles,
-      title: "Marketing",
-      description: "Deploy marketing agents that optimize campaigns, analyze customer behavior, and drive personalized engagement at scale.",
-      href: "/marketing",
-      features: ["Campaign optimization", "Customer analytics", "Personalized engagement"]
-    },
-    {
       icon: Users,
       title: "MSSPs",
       description: "Empower Managed Security Service Providers with scalable agentic automation for multi-client oversight and security management.",
@@ -76,21 +62,6 @@ export default function SolutionsSection() {
     <section className={styles.solutionsSection}>
       <div className={styles.solutionsContainer}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className={styles.solutionsHeader}
-        >
-          <h2 className={styles.solutionsTitle}>
-            Enterprise-Grade Agentic Solutions
-          </h2>
-          <p className={styles.solutionsSubtitle}>
-            Purpose-built AI agents for your most critical business functions
-          </p>
-        </motion.div>
-
-        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -113,13 +84,13 @@ export default function SolutionsSection() {
                       {solution.description}
                     </p>
 
-                    <ul className={styles.featuresList}>
+                    {/* <ul className={styles.featuresList}>
                       {solution.features.map((feature, index) => (
                         <li key={index} className={styles.featureItem}>
                           {feature}
                         </li>
                       ))}
-                    </ul>
+                    </ul> */}
 
                     <div className={styles.solutionLink}>
                       VIEW DETAILS
@@ -149,19 +120,6 @@ const FileCheck = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     <path d="M14 2v6h6M9 15l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-)
-
-const Network = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-)
-
-const Sparkles = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M9.813 9.813a1 1 0 0 1-1.414 0l-5.2-5.2a1 1 0 0 1 1.414-1.414l5.2 5.2a1 1 0 0 1 0 1.414zM14.5 3.5l-11 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="m21 3-9 9M3 21l9-9M15 15l6 6M12 12l9 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 )
 
