@@ -92,7 +92,7 @@ const Header = () => {
   const dropdownMenus = {
     knowledge: [
       { name: 'Blog', href: '/blog' },
-      { name: 'Education Videos', href: '/knowledge-center' },
+      { name: 'Educational Videos', href: '/educational-videos' },
       { name: 'Agentic Log Management', href: '/agentic-log-management' },
     ],
     strike48: [
@@ -100,6 +100,7 @@ const Header = () => {
       { name: 'Trust & Security', href: '/trust-security' },
       { name: 'Case Studies', href: '/case-studies' },
       { name: 'Contact Us', href: '/contact' },
+      { name: 'Leadership', href: '/leadership' },
     ],
   };
 

@@ -1,8 +1,7 @@
-// pages/blog.js
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import BlogPage from '../../components/Blog/BlogPage';
-import styles from '../../styles/about.module.css';
+import styles from '../../styles/Blog.module.css';
 
 const Blog = () => {
   return (

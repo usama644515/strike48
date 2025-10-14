@@ -1,0 +1,216 @@
+.container {
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+/* Hero Section */
+.hero {
+  background-color: #0065B4;
+  color: white;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.heroContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.heroTitle {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #EFBF04;
+}
+
+.heroDescription {
+  font-size: 1.25rem;
+  max-width: 64rem;
+  margin: 0 auto;
+  line-height: 1.625;
+  color: #d1d5db;
+}
+
+/* Story Section */
+.storySection {
+  padding: 4rem 0;
+  background-color: #f9fafb;
+}
+
+.storyContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.storyContent {
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+.storyTitle {
+  font-size: 1.875rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #1a2332;
+}
+
+.storyText {
+  color: #374151;
+  line-height: 1.625;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.storyText p {
+  margin: 0;
+}
+
+.storyText em {
+  font-style: italic;
+}
+
+/* Profiles Section */
+.profilesSection {
+  padding: 5rem 0;
+  background-color: #f8fafc;
+  padding-top: 0.125rem;
+}
+
+.profilesContainer {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.profilesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media (min-width: 768px) {
+  .profilesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.imageContainer {
+  position: relative;
+  width: 16rem;
+  height: 16rem;
+  margin-bottom: 1.5rem;
+}
+
+.profileImage {
+  object-fit: cover;
+  border-radius: 9999px;
+  border: 8px solid #EFBF04;
+}
+
+.profileName {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #1a2332;
+}
+
+.profileTitle {
+  font-size: 1.125rem;
+  color: #0065B4;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Bio Content */
+.bioContent {
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  width: 100%;
+}
+
+.bioExpanded {
+  max-height: 2000px;
+  opacity: 1;
+}
+
+.bioCollapsed {
+  max-height: 0;
+  opacity: 0;
+}
+
+.bioText {
+  text-align: left;
+  color: #374151;
+  line-height: 1.625;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.bioText p {
+  margin: 0;
+}
+
+.linkedinButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid #0065B4;
+  color: #0065B4;
+  background-color: transparent;
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.linkedinButton:hover {
+  background-color: rgba(37, 99, 235, 0.1);
+}
+
+.linkedinIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Bio Toggle Button */
+.bioToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #0065B4;
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.bioToggle:hover {
+  background-color: rgba(37, 99, 235, 0.9);
+}
+
+.toggleIcon {
+  width: 1rem;
+  height: 1rem;
+}

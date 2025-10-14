@@ -1,8 +1,8 @@
-// components/Blog/BlogPage.js
 "use client"
 
 import { useState, useEffect } from "react"
-import { Search, X, Calendar, User, ArrowRight } from "lucide-react"
+import { Calendar, User, ChevronLeft, ChevronRight } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 import { client } from "@/lib/sanity.client"
 import styles from "./BlogPage.module.css"
@@ -10,92 +10,70 @@ import styles from "./BlogPage.module.css"
 function BlogPostCard({ post }) {
   return (
     <article className={styles.postCard}>
-      {post.mainImage && (
-        <div className={styles.postImage}>
-          <img 
-            src={post.mainImage.asset.url} 
-            alt={post.title}
-            loading="lazy"
-          />
-        </div>
-      )}
+      <div className={styles.postImage}>
+        <Image
+          src={post.mainImage?.asset?.url || "/placeholder.svg"}
+          alt={post.title}
+          fill
+          className={styles.postImageImg}
+        />
+      </div>
+
       <div className={styles.postContent}>
-        <div className={styles.postMeta}>
-          <span className={styles.postDate}>
-            <Calendar size={14} />
-            {new Date(post.publishedAt).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
-          </span>
-          <span className={styles.postAuthor}>
-            <User size={14} />
-            {post.author}
-          </span>
-        </div>
-        <h3 className={styles.postTitle}>
+        <h2 className={styles.postTitle}>
           <Link href={`/blog/${post.slug.current}`}>
             {post.title}
           </Link>
-        </h3>
-        <p className={styles.postExcerpt}>
-          {post.excerpt}
-        </p>
-        {post.categories && post.categories.length > 0 && (
-          <div className={styles.postCategories}>
-            {post.categories.slice(0, 2).map((category, index) => (
-              <span key={index} className={styles.postCategory}>
-                {category.title}
-              </span>
-            ))}
+        </h2>
+
+        <div className={styles.postMeta}>
+          <div className={styles.postAuthor}>
+            <User className={styles.postMetaIcon} />
+            <span>{post.author}</span>
           </div>
-        )}
-        <Link href={`/blog/${post.slug.current}`} className={styles.readMore}>
-          Read More <ArrowRight size={16} />
+          <div className={styles.postDate}>
+            <Calendar className={styles.postMetaIcon} />
+            <span>
+              {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </span>
+          </div>
+        </div>
+
+        <p className={styles.postExcerpt}>{post.excerpt}</p>
+
+        <div className={styles.postTags}>
+          {post.categories?.slice(0, 3).map((category, index) => (
+            <span key={index} className={styles.postTag}>
+              {category.title}
+            </span>
+          ))}
+        </div>
+
+        <Link href={`/blog/${post.slug.current}`} className={styles.readMoreButton}>
+          Read More
         </Link>
       </div>
     </article>
   )
 }
 
-const Button = ({ children, className = "", onClick, variant = "default", ...props }) => {
-  const baseStyle = styles.button;
-  const variantStyle = variant === "outline" ? styles.buttonOutline : styles.buttonPrimary;
-  
-  return (
-    <button 
-      className={`${baseStyle} ${variantStyle} ${className}`}
-      onClick={onClick}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-}
-
 export default function BlogPage() {
   const [posts, setPosts] = useState([])
-  const [filteredPosts, setFilteredPosts] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState("")
-  const [selectedAuthor, setSelectedAuthor] = useState("")
-  const [searchQuery, setSearchQuery] = useState("")
-  const [categories, setCategories] = useState([])
-  const [authors, setAuthors] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [sortOption, setSortOption] = useState("newest")
   const [currentPage, setCurrentPage] = useState(1)
-  const postsPerPage = 6
+  const [loading, setLoading] = useState(true)
+  const postsPerPage = 9
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchPosts = async () => {
       try {
-        // Fetch posts
-        const postsQuery = `*[_type == "post"] | order(publishedAt desc){
+        const postsQuery = `*[_type == "post"] | order(publishedAt desc) {
           title,
           slug,
           "author": author->name,
-          "authorSlug": author->slug.current,
           "categories": categories[]->{
             title,
             slug
@@ -109,91 +87,26 @@ export default function BlogPage() {
           excerpt
         }`
 
-        // Fetch categories
-        const categoriesQuery = `*[_type == "category"]{
-          title,
-          slug,
-          "postCount": count(*[_type == "post" && references(^._id)])
-        } | order(title asc)`
-
-        // Fetch authors
-        const authorsQuery = `*[_type == "author"]{
-          name,
-          slug,
-          "postCount": count(*[_type == "post" && references(^._id)])
-        } | order(name asc)`
-
-        const [postsData, categoriesData, authorsData] = await Promise.all([
-          client.fetch(postsQuery),
-          client.fetch(categoriesQuery),
-          client.fetch(authorsQuery)
-        ])
-
+        const postsData = await client.fetch(postsQuery)
         setPosts(postsData)
-        setCategories(categoriesData)
-        setAuthors(authorsData)
-        
       } catch (error) {
-        console.error("Error fetching data:", error)
+        console.error("Error fetching posts:", error)
       } finally {
         setLoading(false)
       }
     }
 
-    fetchData()
+    fetchPosts()
   }, [])
 
-  useEffect(() => {
-    let filtered = posts
-
-    if (selectedCategory) {
-      filtered = filtered.filter(post => 
-        post.categories?.some((c) => c.title === selectedCategory)
-      )
-    }
-
-    if (selectedAuthor) {
-      filtered = filtered.filter(post => 
-        post.author === selectedAuthor
-      )
-    }
-
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase()
-      filtered = filtered.filter(post =>
-        post.title?.toLowerCase().includes(query) ||
-        post.author?.toLowerCase().includes(query) ||
-        post.categories?.some((c) => c.title?.toLowerCase().includes(query)) ||
-        post.excerpt?.toLowerCase().includes(query)
-      )
-    }
-
-    let sorted = [...filtered]
-    if (sortOption === "newest") {
-      sorted.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
-    } else if (sortOption === "oldest") {
-      sorted.sort((a, b) => new Date(a.publishedAt) - new Date(b.publishedAt))
-    }
-
-    setFilteredPosts(sorted)
-  }, [posts, selectedCategory, selectedAuthor, searchQuery, sortOption])
-
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [selectedCategory, selectedAuthor, searchQuery, sortOption])
-
   const indexOfLastPost = currentPage * postsPerPage
-  const currentPosts = filteredPosts.slice(0, indexOfLastPost)
+  const indexOfFirstPost = indexOfLastPost - postsPerPage
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost)
+  const totalPages = Math.ceil(posts.length / postsPerPage)
 
-  const loadMore = () => {
-    setCurrentPage(prev => prev + 1)
-  }
-
-  const clearFilters = () => {
-    setSelectedCategory("")
-    setSelectedAuthor("")
-    setSearchQuery("")
-    setSortOption("newest")
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   if (loading) {
@@ -216,197 +129,65 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <main className={styles.main}>
+      <section className={styles.blogGridSection}>
         <div className={styles.container}>
-          <div className={styles.layoutGrid}>
-            
-            <div className={styles.sidebarColumn}>
-              <div className={styles.searchBox}>
-                <div className={styles.searchHeader}>
-                  <Search className={styles.searchIcon} />
-                  <h3>Search Articles</h3>
-                </div>
-                <div className={styles.searchInputContainer}>
-                  <input
-                    type="text"
-                    placeholder="Search articles..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className={styles.searchInput}
-                  />
-                  {searchQuery && (
-                    <button 
-                      onClick={() => setSearchQuery('')} 
-                      className={styles.clearSearch}
-                    >
-                      <X size={16} />
-                    </button>
-                  )}
-                </div>
-              </div>
+          <div className={styles.blogGrid}>
+            {currentPosts.map((post) => (
+              <BlogPostCard key={post.slug.current} post={post} />
+            ))}
+          </div>
 
-              <div className={styles.categoriesSection}>
-                <h3 className={styles.categoriesTitle}>Categories</h3>
-                <ul className={styles.categoriesList}>
-                  <li className={styles.categoryItem}>
-                    <button
-                      onClick={() => setSelectedCategory("")}
-                      className={`${styles.categoryButton} ${!selectedCategory ? styles.activeCategory : ''}`}
-                    >
-                      All Categories
-                      <span className={styles.categoryCount}>({posts.length})</span>
-                    </button>
-                  </li>
-                  {categories.map((category) => (
-                    <li key={category.slug.current} className={styles.categoryItem}>
-                      <button
-                        onClick={() => setSelectedCategory(category.title)}
-                        className={`${styles.categoryButton} ${selectedCategory === category.title ? styles.activeCategory : ''}`}
-                      >
-                        {category.title}
-                        <span className={styles.categoryCount}>({category.postCount})</span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <div className={styles.pagination}>
+            <button
+              className={`${styles.paginationButton} ${currentPage === 1 ? styles.paginationButtonDisabled : ''}`}
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              aria-label="Previous page"
+            >
+              <ChevronLeft className={styles.paginationIcon} />
+            </button>
 
-              <div className={styles.authorsSection}>
-                <h3 className={styles.authorsTitle}>Authors</h3>
-                <ul className={styles.authorsList}>
-                  <li className={styles.authorItem}>
-                    <button
-                      onClick={() => setSelectedAuthor("")}
-                      className={`${styles.authorButton} ${!selectedAuthor ? styles.activeAuthor : ''}`}
-                    >
-                      All Authors
-                      <span className={styles.authorCount}>({posts.length})</span>
-                    </button>
-                  </li>
-                  {authors.map((author) => (
-                    <li key={author.slug.current} className={styles.authorItem}>
-                      <button
-                        onClick={() => setSelectedAuthor(author.name)}
-                        className={`${styles.authorButton} ${selectedAuthor === author.name ? styles.activeAuthor : ''}`}
-                      >
-                        {author.name}
-                        <span className={styles.authorCount}>({author.postCount})</span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                className={`${styles.paginationButton} ${currentPage === page ? styles.paginationButtonActive : ''}`}
+                onClick={() => handlePageChange(page)}
+              >
+                {page}
+              </button>
+            ))}
 
-              <div className={styles.recentPostsSection}>
-                <h3 className={styles.recentPostsTitle}>Recent Posts</h3>
-                <div className={styles.recentPostsList}>
-                  {posts.slice(0, 3).map((post) => (
-                    <div key={post.slug.current} className={styles.recentPostItem}>
-                      <Link href={`/blog/${post.slug.current}`} className={styles.recentPostLink}>
-                        <h4 className={styles.recentPostTitle}>{post.title}</h4>
-                        <span className={styles.recentPostDate}>
-                          {new Date(post.publishedAt).toLocaleDateString()}
-                        </span>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className={styles.contentColumn}>
-              <div className={styles.resultsHeader}>
-                <div>
-                  <h2 className={styles.resultsTitle}>
-                    {selectedCategory 
-                      ? `${selectedCategory} Articles` 
-                      : selectedAuthor
-                      ? `Articles by ${selectedAuthor}`
-                      : 'All Articles'
-                    }
-                  </h2>
-                  <p className={styles.resultsCount}>
-                    {filteredPosts.length} article{filteredPosts.length !== 1 ? 's' : ''} found
-                    {(selectedCategory || selectedAuthor || searchQuery) && (
-                      <button 
-                        onClick={clearFilters}
-                        className={styles.clearFiltersButton}
-                      >
-                        Clear filters
-                      </button>
-                    )}
-                  </p>
-                </div>
-                
-                <div className={styles.sortContainer}>
-                  <span className={styles.sortLabel}>Sort by:</span>
-                  <select 
-                    className={styles.sortSelect}
-                    value={sortOption}
-                    onChange={(e) => setSortOption(e.target.value)}
-                  >
-                    <option value="newest">Newest First</option>
-                    <option value="oldest">Oldest First</option>
-                  </select>
-                </div>
-              </div>
-
-              {currentPosts.length > 0 ? (
-                <div className={styles.postsGrid}>
-                  {currentPosts.map((post) => (
-                    <BlogPostCard key={post.slug.current} post={post} />
-                  ))}
-                </div>
-              ) : (
-                <div className={styles.noResults}>
-                  <div className={styles.noResultsIcon}>📝</div>
-                  <div className={styles.noResultsText}>
-                    No articles found matching your criteria
-                  </div>
-                  <Button 
-                    onClick={clearFilters}
-                    className={styles.clearFiltersBtn}
-                  >
-                    Clear Filters
-                  </Button>
-                </div>
-              )}
-
-              {indexOfLastPost < filteredPosts.length && (
-                <div className={styles.loadMoreContainer}>
-                  <Button 
-                    variant="outline"
-                    className={styles.loadMoreButton}
-                    onClick={loadMore}
-                  >
-                    Load More Articles
-                  </Button>
-                </div>
-              )}
-            </div>
+            <button
+              className={`${styles.paginationButton} ${currentPage === totalPages ? styles.paginationButtonDisabled : ''}`}
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              aria-label="Next page"
+            >
+              <ChevronRight className={styles.paginationIcon} />
+            </button>
           </div>
         </div>
-      </main>
+      </section>
 
-      <section className={styles.newsletterCta}>
-        <div className={styles.newsletterCtaContainer}>
-          <h2 className={styles.newsletterCtaTitle}>
-            Never Miss an Update
-          </h2>
-          <p className={styles.newsletterCtaDescription}>
-            Join thousands of professionals who receive our latest insights, 
-            case studies, and industry news directly in their inbox.
+      <section className={styles.newsletterSection}>
+        <div className={styles.newsletterContainer}>
+          <h2 className={styles.newsletterTitle}>Never Miss an Update</h2>
+          <p className={styles.newsletterDescription}>
+            Join thousands of professionals who receive our latest insights, case studies, and industry news directly
+            in their inbox.
           </p>
-          <div className={styles.newsletterCtaForm}>
+
+          <form className={styles.newsletterForm}>
             <input
               type="email"
               placeholder="Enter your email address"
-              className={styles.newsletterCtaInput}
+              className={styles.newsletterInput}
+              required
             />
-            <Button className={styles.newsletterCtaButton}>
+            <button type="submit" className={styles.newsletterButton}>
               Subscribe Now
-            </Button>
-          </div>
+            </button>
+          </form>
         </div>
       </section>
     </div>

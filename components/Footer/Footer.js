@@ -42,26 +42,10 @@ const Footer = () => {
           
           <div className={styles.navColumns}>
             <div className={styles.navColumn}>
-              <h3>Agentic Solutions</h3>
-              <Link href="/security">Security</Link>
-              <Link href="/compliance">Compliance</Link>
-              <Link href="/finance">Finance</Link>
-              <Link href="/marketing">Marketing</Link>
-              <Link href="/build-your-own-agent">Build your own Agent</Link>
-            </div>
-            
-            <div className={styles.navColumn}>
-              <h3>Testimonials</h3>
-              <Link href="/testimonials">Client Stories</Link>
-              <Link href="/about-us">About Us</Link>
-            </div>
-            
-            <div className={styles.navColumn}>
-              <h3>Marketing</h3>
-              <Link href="/contact-us">Contact Us</Link>
+              <h3>Knowledge Center</h3>
               <Link href="/blog">Blog</Link>
-              <Link href="/webinars">Webinars</Link>
-              <Link href="/newsletter">Newsletter</Link>
+              <Link href="/educational-videos">Educational Videos</Link>
+              <Link href="/agentic-log-management">Agentic Log Management</Link>
             </div>
             
             <div className={styles.navColumn}>

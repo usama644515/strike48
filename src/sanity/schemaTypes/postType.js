@@ -10,6 +10,7 @@ export const postType = defineType({
     defineField({
       name: 'title',
       type: 'string',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -17,11 +18,13 @@ export const postType = defineType({
       options: {
         source: 'title',
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'author',
       type: 'reference',
       to: {type: 'author'},
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'mainImage',
@@ -33,7 +36,7 @@ export const postType = defineType({
         defineField({
           name: 'alt',
           type: 'string',
-          title: 'Alternative text',
+          title: 'Alternative Text',
         })
       ]
     }),
@@ -45,6 +48,14 @@ export const postType = defineType({
     defineField({
       name: 'publishedAt',
       type: 'datetime',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'excerpt',
+      title: 'Excerpt',
+      type: 'text',
+      description: 'Short description for blog cards',
+      validation: (Rule) => Rule.max(200),
     }),
     defineField({
       name: 'body',
