@@ -24,7 +24,7 @@
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.025em;
-  color: #1a1a1a;
+  color: #0065B4;
 }
 
 .gradientText {
@@ -240,7 +240,7 @@
 /* Responsive Design */
 @media (min-width: 768px) {
   .heroTitle {
-    font-size: 3.5rem;
+    font-size: 3rem;
   }
   
   .solutionsGrid {
@@ -258,7 +258,7 @@
   }
   
   .heroTitle {
-    font-size: 4rem;
+    font-size: 3rem;
   }
   
   .solutionsGrid {

@@ -21,10 +21,7 @@ export default function HeroSection() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className={styles.heroTitle}
           >
-            Enterprise-Grade{" "}
-            <span className={styles.gradientText}>
-              Agentic Solutions
-            </span>
+            Enterprise-Grade Agentic Solutions
           </motion.h1>
 
           <motion.p

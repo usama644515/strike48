@@ -42,6 +42,14 @@ const Footer = () => {
           
           <div className={styles.navColumns}>
             <div className={styles.navColumn}>
+              <h3>Agentic Solutions</h3>
+            </div>
+
+            <div className={styles.navColumn}>
+              <h3>Testimonial</h3>
+            </div>
+
+            <div className={styles.navColumn}>
               <h3>Knowledge Center</h3>
               <Link href="/blog">Blog</Link>
               <Link href="/educational-videos">Educational Videos</Link>
@@ -54,6 +62,7 @@ const Footer = () => {
               <Link href="/trust-security">Trust & Security</Link>
               <Link href="/case-studies">Case Studies</Link>
               <Link href="/contact">Contact Us</Link>
+              <Link href="/leadership">Leadership</Link>
             </div>
           </div>
         </div>
